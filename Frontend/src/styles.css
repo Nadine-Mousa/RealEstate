@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #f4f6f8;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  button {
+    transition: background-color 0.3s ease;
+  }
+
+  

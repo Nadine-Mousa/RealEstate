@@ -1,27 +1,24 @@
-<div class="container mt-5">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-  
-      <!-- Property Card -->
-      <div class="col">
-        <div class="card h-100 shadow-lg">
-          <img src="assets/images/default/property.png" class="card-img-top" style="width: 350px; height: 320px;" alt="Property Image">
-          <div class="card-body">
-            <h5 class="card-title">{{Property.Name}}</h5>
-            <p class="card-text">
-              <strong>Price:</strong> {{Property.Price}} EGP<br>
-              <strong>Location:</strong> {{Property.Location}}<br>
-              <strong>Area:</strong> {{Property.Area}} m²<br>
-              <strong>Bedrooms:</strong> {{Property.Bedrooms}} | <strong>Bathrooms:</strong> {{Property.Bathrooms}}
-            </p>
-          </div>
-          <div class="card-footer text-muted text-end">
-            <small>For Sale • Available: May 2025</small>
-          </div>
-        </div>
-      </div>
-  
-      
-  
+<div class="card h-100 shadow-lg property-card position-relative overflow-hidden">
+  <div class="image-wrapper position-relative">
+    <img src="assets/images/default/property.png" class="card-img-top property-img" alt="Property Image">
+
+    <div class="bottom-overlay d-flex justify-content-center gap-3">
+      <button class="btn btn-light btn-icon" title="Contact">
+        <i class="bi bi-telephone-fill"></i>
+      </button>
+      <button class="btn btn-light btn-icon" title="Details">
+        <i class="bi bi-info-circle-fill"></i>
+      </button>
     </div>
   </div>
-  
+
+  <div class="card-body">
+    <h5 class="card-title">{{Property.Name}}</h5>
+    <p class="card-text">
+      <strong>Price:</strong> {{Property.Price}} EGP<br>
+      <strong>Location:</strong> {{Property.Location}}<br>
+      <strong>Area:</strong> {{Property.Area}} m²<br>
+      <strong>Bedrooms:</strong> {{Property.Bedrooms}} | <strong>Bathrooms:</strong> {{Property.Bathrooms}}
+    </p>
+  </div>
+</div>

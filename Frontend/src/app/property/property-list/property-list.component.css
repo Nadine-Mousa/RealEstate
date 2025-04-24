@@ -1,0 +1,8 @@
+.row > [class*='col-'] {
+  display: flex;
+}
+
+.property-card {
+  width: 100%;
+  flex: 1; /* This ensures cards stretch to fill the column */
+}
