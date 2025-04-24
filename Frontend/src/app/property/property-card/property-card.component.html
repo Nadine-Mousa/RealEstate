@@ -1,24 +1,76 @@
 <div class="card h-100 shadow-lg property-card position-relative overflow-hidden">
-  <div class="image-wrapper position-relative">
-    <img src="assets/images/default/property.png" class="card-img-top property-img" alt="Property Image">
-
-    <div class="bottom-overlay d-flex justify-content-center gap-3">
-      <button class="btn btn-light btn-icon" title="Contact">
-        <i class="bi bi-telephone-fill"></i>
-      </button>
-      <button class="btn btn-light btn-icon" title="Details">
-        <i class="bi bi-info-circle-fill"></i>
-      </button>
+  <div class="image-wrapper position-relative overflow-hidden">
+    <img 
+      src="assets/images/default/property.png" 
+      class="card-img-top property-img" 
+      alt="Property Image"
+      [style.background-image]="'url(assets/images/default/property.png)'"
+    >
+    
+    <!-- Price Tag -->
+    <div class="position-absolute top-0 end-0 bg-primary text-white p-2 m-2 rounded">
+      {{Property.Price | currency:'EGP':'symbol':'1.0-0'}}
+    </div>
+    
+    <!-- Type Badge -->
+    <div class="position-absolute top-0 start-0 bg-dark text-white p-2 m-2 rounded">
+      {{Property.Type}}
+    </div>
+    
+    <!-- Hover Overlay -->
+    <div class="image-overlay d-flex flex-column justify-content-center align-items-center">
+      <div class="btn-group">
+        <button class="btn btn-light btn-icon mx-1" title="Contact">
+          <i class="bi bi-telephone-fill"></i>
+        </button>
+        <button class="btn btn-light btn-icon mx-1" title="Details">
+          <i class="bi bi-info-circle-fill"></i>
+        </button>
+        <button class="btn btn-light btn-icon mx-1" title="Favorite">
+          <i class="bi bi-heart-fill"></i>
+        </button>
+      </div>
     </div>
   </div>
 
   <div class="card-body">
     <h5 class="card-title">{{Property.Name}}</h5>
-    <p class="card-text">
-      <strong>Price:</strong> {{Property.Price}} EGP<br>
-      <strong>Location:</strong> {{Property.Location}}<br>
-      <strong>Area:</strong> {{Property.Area}} m²<br>
-      <strong>Bedrooms:</strong> {{Property.Bedrooms}} | <strong>Bathrooms:</strong> {{Property.Bathrooms}}
-    </p>
+    <div class="card-text">
+      <div class="d-flex align-items-center mb-2">
+        <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+        <span>{{Property.Location}}</span>
+      </div>
+      <div class="d-flex justify-content-between">
+        <!-- Area with tooltip -->
+        <div class="d-flex align-items-center position-relative feature-item">
+          <i class="bi bi-arrows-fullscreen text-primary me-2" 
+             data-bs-toggle="tooltip" 
+             data-bs-placement="top" 
+             title="Total Area"></i>
+          <span>{{Property.Area}} m²</span>
+          <!-- <span class="tooltip-text">Total Area</span> -->
+        </div>
+        
+        <!-- Bedrooms with tooltip -->
+        <div class="d-flex align-items-center position-relative feature-item">
+          <i class="bi bi-door-open text-primary me-2" 
+             data-bs-toggle="tooltip" 
+             data-bs-placement="top" 
+             title="Bedrooms"></i>
+          <span>{{Property.Bedrooms}}</span>
+          <!-- <span class="tooltip-text">Bedrooms</span> -->
+        </div>
+        
+        <!-- Bathrooms with tooltip -->
+        <div class="d-flex align-items-center position-relative feature-item">
+          <i class="bi bi-bucket-fill text-primary me-2" 
+             data-bs-toggle="tooltip" 
+             data-bs-placement="top" 
+             title="Bathrooms"></i>
+          <span>{{Property.Bathrooms}}</span>
+          <!-- <span class="tooltip-text">Bathrooms</span> -->
+        </div>
+      </div>
+    </div>
   </div>
 </div>

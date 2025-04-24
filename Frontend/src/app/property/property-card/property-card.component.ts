@@ -1,21 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
+import * as bootstrap from 'bootstrap';
 
 @Component({
-    selector: 'app-property-card',
-    templateUrl: 'property-card.component.html',
-    styleUrls: ['property-card.component.css']
+  selector: 'app-property-card',
+  templateUrl: './property-card.component.html',
+  styleUrls: ['./property-card.component.css']
 })
+export class PropertyCardComponent implements OnInit {
+  @Input() Property: any;
 
-export class PropertyCardComponent  {
-    @Input () Property : any;
-    // property : any = {
-    //     Id: 101,
-    //     Name: "Modern Apartment in Downtown",
-    //     Type: "Apartment",
-    //     Price: 350000,
-    //     Location: "123 Nile Street, Zamalek, Cairo",
-    //     Bedrooms: 3,
-    //     Bathrooms: 2,
-    //     Area: 200 
-    // }
+  ngOnInit() {
+    // Initialize Bootstrap tooltips if using them
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+  }
 }

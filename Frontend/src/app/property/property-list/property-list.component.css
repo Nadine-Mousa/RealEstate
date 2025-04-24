@@ -1,8 +1,13 @@
-.row > [class*='col-'] {
+/* Remove if you're using Bootstrap 5+ as it's included by default */
+.row {
   display: flex;
+  flex-wrap: wrap;
+  margin-right: -12px;
+  margin-left: -12px;
 }
 
-.property-card {
-  width: 100%;
-  flex: 1; /* This ensures cards stretch to fill the column */
+.row > [class*='col-'] {
+  padding-right: 12px;
+  padding-left: 12px;
+  margin-bottom: 24px;
 }
