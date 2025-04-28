@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as bootstrap from 'bootstrap';
+import { IProperty } from '../iproperty';
 
 @Component({
   selector: 'app-property-card',
@@ -7,7 +8,7 @@ import * as bootstrap from 'bootstrap';
   styleUrls: ['./property-card.component.css']
 })
 export class PropertyCardComponent implements OnInit {
-  @Input() Property: any;
+  @Input() Property: IProperty;
 
   ngOnInit() {
     // Initialize Bootstrap tooltips if using them
