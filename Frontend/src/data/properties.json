@@ -7,7 +7,9 @@
         "Location": "123 Nile Street, Zamalek, Cairo",
         "Bedrooms": 3,
         "Bathrooms": 2,
-        "Area": 200 
+        "Area": 200,
+        "Category": "sale",
+        "Image": "Modern Apartment in Downtown.png"
     },
     {
         "Id": 102,
@@ -17,7 +19,9 @@
         "Location": "45 Palm Hills, New Cairo, Cairo",
         "Bedrooms": 5,
         "Bathrooms": 4,
-        "Area": 500
+        "Area": 500,
+        "Category": "sale",
+        "Image": null
     },
     {
         "Id": 103,
@@ -27,7 +31,9 @@
         "Location": "78 Road 9, Maadi, Cairo",
         "Bedrooms": 1,
         "Bathrooms": 1,
-        "Area": 65
+        "Area": 65,
+        "Category": "rent",
+        "Image": null
     },
     {
         "Id": 104,
@@ -37,7 +43,9 @@
         "Location": "12 Green Park, 6th October City, Giza",
         "Bedrooms": 4,
         "Bathrooms": 3,
-        "Area": 300
+        "Area": 300,
+        "Category": "sale",
+        "Image": null
     },
     {
         "Id": 105,
@@ -47,7 +55,9 @@
         "Location": "5 Corniche El Nil, Garden City, Cairo",
         "Bedrooms": 4,
         "Bathrooms": 3,
-        "Area": 400
+        "Area": 400,
+        "Category": "sale",
+        "Image": null
     },
     {
         "Id": 106,
@@ -57,7 +67,9 @@
         "Location": "21 Beverly Hills, Sheikh Zayed, Giza",
         "Bedrooms": 3,
         "Bathrooms": 2,
-        "Area": 280
+        "Area": 280,
+        "Category": "rent",
+        "Image": null
     },
     {
         "Id": 107,
@@ -67,6 +79,8 @@
         "Location": "88 Abbas El Akkad, Nasr City, Cairo",
         "Bedrooms": 2,
         "Bathrooms": 2,
-        "Area": 150
+        "Area": 150,
+        "Category": "rent",
+        "Image": null
     }
 ]

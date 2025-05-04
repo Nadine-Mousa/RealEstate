@@ -1,6 +1,12 @@
 <div class="card h-100 shadow-lg property-card position-relative overflow-hidden">
   <div class="image-wrapper position-relative overflow-hidden">
-    <img 
+    <img *ngIf="Property.Image" 
+      src="assets/images/{{Property.Image}}" 
+      class="card-img-top property-img" 
+      alt="Property Image"
+      [style.background-image]="'url(assets/images/default/property.png)'"
+    >
+    <img *ngIf="!Property.Image"
       src="assets/images/default/property.png" 
       class="card-img-top property-img" 
       alt="Property Image"
@@ -23,7 +29,7 @@
         <button class="btn btn-light btn-icon mx-1" title="Contact">
           <i class="bi bi-telephone-fill"></i>
         </button>
-        <button class="btn btn-light btn-icon mx-1" title="Details">
+        <button routerLink="/property-details/{{Property.Id}}" class="btn btn-light btn-icon mx-1" title="Details">
           <i class="bi bi-info-circle-fill"></i>
         </button>
         <button class="btn btn-light btn-icon mx-1" title="Favorite">
