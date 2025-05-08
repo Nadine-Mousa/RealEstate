@@ -7,6 +7,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 })
 export class NavBarComponent implements OnInit {
   isScrolled = false;
+  isLoggedIn = false;
 
   @HostListener('window:scroll')
   scrollHandler() {
@@ -15,5 +16,6 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit() {
     this.scrollHandler();
+    
   }
 }

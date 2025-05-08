@@ -1,0 +1,107 @@
+.registration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding: 2rem;
+  }
+  
+  .registration-card {
+    display: flex;
+    max-width: 1000px;
+    width: 100%;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .illustration-side {
+    flex: 1;
+    background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+    color: white;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  
+    .illustration-img {
+      max-width: 80%;
+      margin-bottom: 2rem;
+    }
+  
+    .illustration-text {
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+  
+    .illustration-subtext {
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+  }
+  
+  .form-side {
+    flex: 1;
+    padding: 3rem;
+  
+    .card-header {
+      margin-bottom: 2rem;
+      text-align: center;
+  
+      h2 {
+        color: #0d6efd;
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+  
+  .registration-form {
+    .form-group {
+      margin-bottom: 1.5rem;
+  
+      label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+  
+      .input-group-text {
+        background-color: #f8f9fa;
+      }
+    }
+  
+    .btn-group {
+      .btn {
+        flex: 1;
+      }
+    }
+  
+    .invalid-feedback {
+      font-size: 0.8rem;
+      margin-top: 0.25rem;
+    }
+  
+    .form-check {
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .registration-card {
+      flex-direction: column;
+    }
+  
+    .illustration-side {
+      padding: 2rem;
+      display: none; // Hide illustration on mobile for better UX
+    }
+  
+    .form-side {
+      padding: 2rem;
+    }
+  }

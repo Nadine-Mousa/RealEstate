@@ -1,0 +1,239 @@
+<div class="registration-container">
+  <div class="registration-card">
+    <div class="illustration-side">
+      <img src="assets/images/default/register-illustration.svg" alt="Real Estate Registration" class="illustration-img">
+      <h3 class="illustration-text">Join Our Community</h3>
+      <p class="illustration-subtext">Find your dream property with us</p>
+    </div>
+    
+    <div class="form-side">
+      <div class="card-header">
+        <h2><i class="bi bi-house-heart"></i> Create Your Account</h2>
+        <p class="text-muted">Register to access exclusive properties</p>
+      </div>
+      
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="registration-form">
+        <!-- User Type -->
+        <div class="form-group">
+          <label class="form-label">I want to</label>
+          <div class="btn-group w-100" role="group">
+            <button type="button" class="btn" 
+                    [class.btn-primary]="registrationForm.get('userType')?.value === 'buyer'"
+                    [class.btn-outline-primary]="registrationForm.get('userType')?.value !== 'buyer'"
+                    (click)="registrationForm.get('userType')?.setValue('buyer')">
+              <i class="bi bi-search"></i> Buy Property
+            </button>
+            <button type="button" class="btn"
+                    [class.btn-primary]="registrationForm.get('userType')?.value === 'seller'"
+                    [class.btn-outline-primary]="registrationForm.get('userType')?.value !== 'seller'"
+                    (click)="registrationForm.get('userType')?.setValue('seller')">
+              <i class="bi bi-house-up"></i> Sell Property
+            </button>
+          </div>
+        </div>
+
+        <!-- Name Fields -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="firstName" class="form-label">First Name</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="John">
+              </div>
+              <div *ngIf="registrationForm.get('firstName')?.invalid && registrationForm.get('firstName')?.touched" class="invalid-feedback d-block">
+                <span *ngIf="registrationForm.get('firstName')?.hasError('required')">First name is required</span>
+                <span *ngIf="registrationForm.get('firstName')?.hasError('minlength')">Minimum 2 characters required</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="lastName" class="form-label">Last Name</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Doe">
+              </div>
+              <div *ngIf="registrationForm.get('lastName')?.invalid && registrationForm.get('lastName')?.touched" class="invalid-feedback d-block">
+                <span *ngIf="registrationForm.get('lastName')?.hasError('required')">Last name is required</span>
+                <span *ngIf="registrationForm.get('lastName')?.hasError('minlength')">Minimum 2 characters required</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="email" class="form-control" id="email" formControlName="email" placeholder="john@example.com">
+          </div>
+          <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched" class="invalid-feedback d-block">
+            <span *ngIf="registrationForm.get('email')?.hasError('required')">Email is required</span>
+            <span *ngIf="registrationForm.get('email')?.hasError('email')">Please enter a valid email</span>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="form-group">
+          <label for="phone" class="form-label">Phone Number</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-phone"></i></span>
+            <input type="tel" class="form-control" id="phone" formControlName="phone" placeholder="1234567890">
+          </div>
+          <div *ngIf="registrationForm.get('phone')?.invalid && registrationForm.get('phone')?.touched" class="invalid-feedback d-block">
+            <span *ngIf="registrationForm.get('phone')?.hasError('required')">Phone number is required</span>
+            <span *ngIf="registrationForm.get('phone')?.hasError('pattern')">Please enter a valid phone number (10-15 digits)</span>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input [type]="passwordVisible ? 'text' : 'password'" class="form-control" id="password" formControlName="password" placeholder="••••••••">
+            <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility('password')">
+              <i class="bi" [class.bi-eye]="!passwordVisible" [class.bi-eye-slash]="passwordVisible"></i>
+            </button>
+          </div>
+          <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched" class="invalid-feedback d-block">
+            <span *ngIf="registrationForm.get('password')?.hasError('required')">Password is required</span>
+            <span *ngIf="registrationForm.get('password')?.hasError('minlength')">Minimum 8 characters required</span>
+            <span *ngIf="registrationForm.get('password')?.hasError('pattern')">
+              Must contain uppercase, lowercase, number, and special character
+            </span>
+          </div>
+        </div>
+        
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <label for="confirmPassword" class="form-label">Confirm Password</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input [type]="confirmPasswordVisible ? 'text' : 'password'" class="form-control" id="confirmPassword" formControlName="confirmPassword" placeholder="••••••••">
+            <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility('confirmPassword')">
+              <i class="bi" [class.bi-eye]="!confirmPasswordVisible" [class.bi-eye-slash]="confirmPasswordVisible"></i>
+            </button>
+          </div>
+          <div *ngIf="registrationForm.get('confirmPassword')?.invalid && registrationForm.get('confirmPassword')?.touched" class="invalid-feedback d-block">
+            <span *ngIf="registrationForm.get('confirmPassword')?.hasError('required')">Please confirm your password</span>
+          </div>
+          <div *ngIf="registrationForm.hasError('passwordMismatch') && password.touched  && password.valid && confirmPassword.touched" class="invalid-feedback d-block">
+            Passwords do not match
+          </div>
+        </div>
+        
+
+        <!-- Terms and Conditions -->
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="termsAccepted" formControlName="termsAccepted">
+          <label class="form-check-label" for="termsAccepted">
+            I agree to the <a href="#" class="text-primary">Terms and Conditions</a> and <a href="#" class="text-primary">Privacy Policy</a>
+          </label>
+          <div *ngIf="registrationForm.get('termsAccepted')?.invalid && registrationForm.get('termsAccepted')?.touched" class="invalid-feedback d-block">
+            You must accept the terms and conditions
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary w-100 py-2" [disabled]="registrationForm.invalid">
+            <i class="bi bi-person-plus"></i> Create Account
+          </button>
+        </div>
+
+        <div class="text-center mt-3">
+          <p class="text-muted">Already have an account? <a routerLink="/login" class="text-primary">Sign In</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="row">
+  <div class="col-6 m-auto">
+  <div class="card m-auto">
+    <div class="card-header">
+      Register
+    </div>
+    <div class="card-body">
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <div class="form-group col-12">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" formControlName="name">
+            <span *ngIf="!name.valid && name.touched" style="color:red">
+                Please, provide a valid name
+            </span>
+        </div>
+
+        <div class="form-group col-12">
+          <label for="email" class="form-label">Email</label>
+          <input type="text" class="form-control" formControlName="email">
+          <span *ngIf="!email.valid && email.touched" style="color:red">
+            <span *ngIf="email.hasError('required')">
+              The email field is required
+            </span>
+            <span *ngIf="email.hasError('email')">
+              Provide a valid email
+            </span>
+
+          </span>
+        </div>
+
+        <div class="form-group col-12">
+          <label for="passwrod" class="form-label">Password</label>
+          <input type="text" class="form-control" formControlName="password">
+        </div>
+
+        <div class="form-group col-12">
+          <label for="cpassword" class="form-label">Confirm Password</label>
+          <input type="text" class="form-control" formControlName="confirmPassword">
+          <span *ngIf="!confirmPassword.valid && confirmPassword.touched" style="color: red;">
+            Invalid
+          </span>
+          <span *ngIf="registrationForm.hasError('notmatched') && confirmPassword.valid">
+            Passwords do not match
+          </span>
+        </div>
+
+        <div class="form-group col-12">
+          <label for="mobile" class="form-label">Mobile</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="form-group col-12">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="reset" class="btn btn-secondary ml-2">Cancel</button>
+        </div>
+
+        Form Values:- {{registrationForm.value | json}} <br>
+        Form Status:- {{registrationForm.valid}}
+      </form>
+    </div>
+  </div>
+  </div>
+</div> -->
