@@ -16,6 +16,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { RegisterComponent } from './user/register/register.component';
 import { LoginComponent } from './user/login/login.component';
 import { UserService } from './services/user.service';
+import { AlertifyService } from './services/alertify.service';
 
 const appRoutes : Routes = [
   {path: '', component: PropertyListComponent},
@@ -58,7 +59,8 @@ const appRoutes : Routes = [
   ],
   providers: [
     HousingService,
-    UserService
+    UserService,
+    AlertifyService
   ],
   bootstrap: [AppComponent]
 })

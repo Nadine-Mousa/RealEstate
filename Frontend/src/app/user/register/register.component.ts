@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { User } from 'src/app/model/user';
+import { AlertifyService } from 'src/app/services/alertify.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class RegisterComponent {
   confirmPasswordVisible = false;
   user: User;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private alertifyService : AlertifyService) {
   }
 
 
@@ -29,7 +30,7 @@ export class RegisterComponent {
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};:"|,.<>\/?~`])[A-Za-z\d!@#$%^&*()_+\-=\[\]{};:"|,.<>\/?~`]+$/)
       ]),
       confirmPassword: new FormControl('', Validators.required),
       termsAccepted: new FormControl(false, [Validators.requiredTrue])
@@ -59,9 +60,11 @@ export class RegisterComponent {
         password: this.registrationForm.value.password
       };
       this.userService.addUserToLocalStorage(this.user);
+      this.alertifyService.displaySuccessNotification("User Added To local storage successfully!");
       
 
     } else {
+      this.alertifyService.displayErrorNotification("Please correct the highlighted errors before submitting.");
       this.registrationForm.markAllAsTouched();
     }
   }
