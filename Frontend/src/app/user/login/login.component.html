@@ -1,3 +1,97 @@
-<p>
-  login works!
-</p>
+<div class="login-container">
+  <div class="login-card">
+    <!-- Illustration Side -->
+    <div class="illustration-side">
+      <img src="assets/images/default/login-illustration.svg" alt="Welcome Back" class="illustration-img">
+      <h3 class="illustration-text">Welcome Back</h3>
+      <p class="illustration-subtext">Find your dream property with us</p>
+    </div>
+    
+    <!-- Form Side -->
+    <div class="form-side">
+      <div class="card-header">
+        <h2><i class="bi bi-house-heart"></i> Sign In</h2>
+        <p class="text-muted">Access your exclusive properties</p>
+      </div>
+      
+      <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" class="login-form">
+        <!-- Email Field -->
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="email" 
+                   class="form-control" 
+                   id="email" 
+                   name="email"
+                   [(ngModel)]="loginData.email"
+                   #email="ngModel"
+                   required
+                   email
+                   [class.is-invalid]="email.invalid && email.touched"
+                   placeholder="john@example.com">
+          </div>
+          <div *ngIf="email.invalid && email.touched" class="invalid-feedback">
+            <span *ngIf="email.errors?.required">Email is required</span>
+            <span *ngIf="email.errors?.email">Please enter a valid email</span>
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input [type]="showPassword ? 'text' : 'password'"
+                   class="form-control"
+                   id="password"
+                   name="password"
+                   [(ngModel)]="loginData.password"
+                   #password="ngModel"
+                   required
+                   [class.is-invalid]="password.invalid && password.touched"
+                   placeholder="••••••••">
+            <button class="btn btn-outline-secondary" 
+                    type="button" 
+                    (click)="showPassword = !showPassword">
+              <i class="bi" [class.bi-eye]="showPassword" [class.bi-eye-slash]="!showPassword"></i>
+            </button>
+          </div>
+          <div *ngIf="password.invalid && password.touched" class="invalid-feedback">
+            <span *ngIf="password.errors?.required">Password is required</span>
+            <span *ngIf="password.errors?.minlength">Minimum 8 characters required</span>
+          </div>
+        </div>
+
+        <!-- Remember Me & Forgot Password -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div class="form-check">
+            <input class="form-check-input" 
+                   type="checkbox" 
+                   id="rememberMe"
+                   name="rememberMe"
+                   [(ngModel)]="loginData.rememberMe">
+            <label class="form-check-label" for="rememberMe">
+              Remember me
+            </label>
+          </div>
+          <a routerLink="/forgot-password" class="text-primary">Forgot password?</a>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+          <button type="submit" 
+                  class="btn btn-primary w-100 py-2"
+                  [disabled]="loginForm.invalid">
+            <i class="bi bi-box-arrow-in-right"></i> Sign In
+          </button>
+        </div>
+
+        <!-- Sign Up Link -->
+        <div class="text-center mt-3">
+          <p class="text-muted">Don't have an account? <a routerLink="/register" class="text-primary">Sign Up</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
