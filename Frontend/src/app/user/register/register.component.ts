@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
+import { User } from 'src/app/model/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -10,14 +13,15 @@ export class RegisterComponent {
   registrationForm: FormGroup;
   passwordVisible = false;
   confirmPasswordVisible = false;
+  user: User;
 
-  constructor() {
+  constructor(private userService: UserService) {
   }
 
 
   ngOnInit(){
     this.registrationForm = new FormGroup({
-      userType: new FormControl('buyer', [Validators.required]),
+      // userType: new FormControl('buyer', [Validators.required]),
       firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
       lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -37,17 +41,26 @@ export class RegisterComponent {
     {passwordMismatch: true}
   }
 
-    get password(){
-    return this.registrationForm.get('password') as FormControl;
-  }
-  get confirmPassword(){
-    return this.registrationForm.get('confirmPassword') as FormControl;
-  }
+
 
   onSubmit(): void {
     if (this.registrationForm.valid) {
       console.log('Form submitted:', this.registrationForm.value);
       // Add your registration logic here
+
+      // Add to local storage
+      // this.user = Object.assign(this.user, this.registrationForm.value);
+      const formValue = this.registrationForm.value;
+      this.user = {
+        firstName: this.registrationForm.value.firstName,
+        lastName: this.registrationForm.value.lastName,
+        email: this.registrationForm.value.email,
+        phone: this.registrationForm.value.phone,
+        password: this.registrationForm.value.password
+      };
+      this.userService.addUserToLocalStorage(this.user);
+      
+
     } else {
       this.registrationForm.markAllAsTouched();
     }
@@ -60,6 +73,32 @@ export class RegisterComponent {
       this.confirmPasswordVisible = !this.confirmPasswordVisible;
     }
   }
+
+
+
+
+
+  // getters 
+  get firstName(){
+    return this.registrationForm.get('firstName') as FormControl;
+  }
+  get lastName(){
+    return this.registrationForm.get('lastName') as FormControl;
+  }
+  get email(){
+    return this.registrationForm.get('email') as FormControl;
+  }
+  get phone(){
+    return this.registrationForm.get('phone') as FormControl;
+  }
+  get password(){
+    return this.registrationForm.get('password') as FormControl;
+  }
+  get confirmPassword(){
+    return this.registrationForm.get('confirmPassword') as FormControl;
+  }
+
+
 }
 
 
