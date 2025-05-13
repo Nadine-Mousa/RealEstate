@@ -67,7 +67,7 @@
         <div class="dropdown" *ngIf="onLoggedIn()">
           <button class="btn btn-outline-light dropdown-toggle" type="button" id="userDropdown" 
                   data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-person-circle me-1"></i> Account
+            <i class="bi bi-person-circle me-1"></i> {{loggedInUser}}
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
             <li><a class="dropdown-item" routerLink="/profile"><i class="bi bi-person me-2"></i> Profile</a></li>

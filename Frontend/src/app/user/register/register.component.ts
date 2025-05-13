@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { User } from 'src/app/model/user';
 import { AlertifyService } from 'src/app/services/alertify.service';
@@ -16,7 +17,7 @@ export class RegisterComponent {
   confirmPasswordVisible = false;
   user: User;
 
-  constructor(private userService: UserService, private alertifyService : AlertifyService) {
+  constructor(private userService: UserService, private alertifyService : AlertifyService, private router: Router) {
   }
 
 
@@ -60,6 +61,7 @@ export class RegisterComponent {
         password: this.registrationForm.value.password
       };
       this.userService.addUserToLocalStorage(this.user);
+      this.router.navigate(['login']);
       this.alertifyService.displaySuccessNotification("User Added To local storage successfully!");
       
 
