@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { User } from 'src/app/model/user';
@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  registrationForm: FormGroup;
+  registrationForm: UntypedFormGroup;
   passwordVisible = false;
   confirmPasswordVisible = false;
   user: User;
@@ -22,23 +22,23 @@ export class RegisterComponent {
 
 
   ngOnInit(){
-    this.registrationForm = new FormGroup({
+    this.registrationForm = new UntypedFormGroup({
       // userType: new FormControl('buyer', [Validators.required]),
-      firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      phone: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{10,15}$/)]),
-      password: new FormControl('', [
+      firstName: new UntypedFormControl('', [Validators.required, Validators.minLength(2)]),
+      lastName: new UntypedFormControl('', [Validators.required, Validators.minLength(2)]),
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      phone: new UntypedFormControl('', [Validators.required, Validators.pattern(/^[0-9]{10,15}$/)]),
+      password: new UntypedFormControl('', [
         Validators.required,
         Validators.minLength(8),
         Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};:"|,.<>\/?~`])[A-Za-z\d!@#$%^&*()_+\-=\[\]{};:"|,.<>\/?~`]+$/)
       ]),
-      confirmPassword: new FormControl('', Validators.required),
-      termsAccepted: new FormControl(false, [Validators.requiredTrue])
+      confirmPassword: new UntypedFormControl('', Validators.required),
+      termsAccepted: new UntypedFormControl(false, [Validators.requiredTrue])
     }, this.matchingPasswordValidator);
   }
 
-    matchingPasswordValidator(formGroup: FormGroup): Validators {
+    matchingPasswordValidator(formGroup: UntypedFormGroup): Validators {
     return formGroup.get('password').value === formGroup.get('confirmPassword').value ? null :
     {passwordMismatch: true}
   }
@@ -85,22 +85,22 @@ export class RegisterComponent {
 
   // getters 
   get firstName(){
-    return this.registrationForm.get('firstName') as FormControl;
+    return this.registrationForm.get('firstName') as UntypedFormControl;
   }
   get lastName(){
-    return this.registrationForm.get('lastName') as FormControl;
+    return this.registrationForm.get('lastName') as UntypedFormControl;
   }
   get email(){
-    return this.registrationForm.get('email') as FormControl;
+    return this.registrationForm.get('email') as UntypedFormControl;
   }
   get phone(){
-    return this.registrationForm.get('phone') as FormControl;
+    return this.registrationForm.get('phone') as UntypedFormControl;
   }
   get password(){
-    return this.registrationForm.get('password') as FormControl;
+    return this.registrationForm.get('password') as UntypedFormControl;
   }
   get confirmPassword(){
-    return this.registrationForm.get('confirmPassword') as FormControl;
+    return this.registrationForm.get('confirmPassword') as UntypedFormControl;
   }
 
 
