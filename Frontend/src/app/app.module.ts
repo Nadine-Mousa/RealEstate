@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {HttpClientModule} from '@angular/common/http'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { Routes, RouterModule } from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 
@@ -39,31 +39,25 @@ const appRoutes : Routes = [
 
 
 ]
-@NgModule({
-  declarations: [		
-    AppComponent,
-    PropertyCardComponent,
-    PropertyListComponent,
-    NavBarComponent,
-    AddPropertyComponent,
-    PropertyDetailsComponent,
-    PageNotFoundComponent,
-    RegisterComponent,
-    LoginComponent
-   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    RouterModule.forRoot(appRoutes, {}),
-    FormsModule,
-    ReactiveFormsModule
-  ],
-  providers: [
-    HousingService,
-    UserService,
-    AlertifyService,
-    AuthService
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        PropertyCardComponent,
+        PropertyListComponent,
+        NavBarComponent,
+        AddPropertyComponent,
+        PropertyDetailsComponent,
+        PageNotFoundComponent,
+        RegisterComponent,
+        LoginComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        RouterModule.forRoot(appRoutes, {}),
+        FormsModule,
+        ReactiveFormsModule], providers: [
+        HousingService,
+        UserService,
+        AlertifyService,
+        AuthService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
