@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-property-details',
-  templateUrl: './property-details.component.html',
-  styleUrls: ['./property-details.component.scss']
+    selector: 'app-property-details',
+    templateUrl: './property-details.component.html',
+    styleUrls: ['./property-details.component.scss'],
+    standalone: false
 })
 export class PropertyDetailsComponent implements OnInit {
   propertyId: number;

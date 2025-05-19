@@ -5,9 +5,10 @@ import { ActivatedRoute, Route } from '@angular/router';
 
 
 @Component({
-  selector: 'app-property-list',
-  templateUrl: './property-list.component.html',
-  styleUrls: ['./property-list.component.css']
+    selector: 'app-property-list',
+    templateUrl: './property-list.component.html',
+    styleUrls: ['./property-list.component.css'],
+    standalone: false
 })
 export class PropertyListComponent implements OnInit {
 
