@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HousingService } from 'src/app/services/housing.service';
-import { Category, IProperty } from '../iproperty';
+import { SellOrRent, IProperty } from '../iproperty';
 import { ActivatedRoute, Route } from '@angular/router';
 
 

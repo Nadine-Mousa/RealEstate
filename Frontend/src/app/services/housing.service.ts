@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import { Category, IProperty } from '../property/iproperty';
+import { SellOrRent, IProperty } from '../property/iproperty';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class HousingService {
         if(!category) return properties;
 
         
-        return properties.filter( p => p.Category.toLowerCase() == category.toLowerCase());
+        return properties.filter( p => p.SellOrRent.toLowerCase() == category.toLowerCase());
       })
     )
   }

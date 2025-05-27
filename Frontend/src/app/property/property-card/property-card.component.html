@@ -20,7 +20,7 @@
     
     <!-- Type Badge -->
     <div class="position-absolute top-0 start-0 bg-dark text-white p-2 m-2 rounded">
-      {{Property.Type}}
+      {{Property.PropertyType}}
     </div>
     
     <!-- Hover Overlay -->
@@ -44,7 +44,7 @@
     <div class="card-text">
       <div class="d-flex align-items-center mb-2">
         <i class="bi bi-geo-alt-fill text-primary me-2"></i>
-        <span>{{Property.Location}}</span>
+        <span>{{Property.Address}}</span>
       </div>
       <div class="d-flex justify-content-between">
         <!-- Area with tooltip -->
@@ -53,7 +53,7 @@
              data-bs-toggle="tooltip" 
              data-bs-placement="top" 
              title="Total Area"></i>
-          <span>{{Property.Area}} m²</span>
+          <span>{{Property.BuiltArea}} m²</span>
           <!-- <span class="tooltip-text">Total Area</span> -->
         </div>
         

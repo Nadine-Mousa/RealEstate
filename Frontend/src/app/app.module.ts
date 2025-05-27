@@ -3,6 +3,11 @@ import { NgModule } from '@angular/core';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { Routes, RouterModule } from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 import { AppComponent } from './app.component';
@@ -39,7 +44,9 @@ const appRoutes : Routes = [
 
 
 ]
-@NgModule({ declarations: [
+@NgModule(
+  {
+    declarations: [
         AppComponent,
         PropertyCardComponent,
         PropertyListComponent,
@@ -50,14 +57,24 @@ const appRoutes : Routes = [
         RegisterComponent,
         LoginComponent
     ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
+    bootstrap: [AppComponent], 
+    imports: [
+        BrowserModule,
         RouterModule.forRoot(appRoutes, {}),
         FormsModule,
-        ReactiveFormsModule], providers: [
+        ReactiveFormsModule,
+        TabsModule,
+        ButtonsModule,
+        BrowserAnimationsModule,
+        BsDropdownModule,
+        BsDatepickerModule
+      ], 
+      providers: [
         HousingService,
         UserService,
         AlertifyService,
         AuthService,
-        provideHttpClient(withInterceptorsFromDi())
+        provideHttpClient(withInterceptorsFromDi()),
+        
     ] })
 export class AppModule { }
