@@ -2,6 +2,57 @@
   min-height: 300px;
   vertical-align: middle;
   text-align: center;
-  border: 1px dashed blue;
+  border: 2px dashed var(--bs-primary);
+  border-radius: 8px;
   margin: 5px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  background-color: rgba(13, 110, 253, 0.05);
+
+  &:hover {
+    background-color: rgba(13, 110, 253, 0.1);
+    border-color: var(--bs-primary-dark);
+  }
+}
+
+.card-header {
+  border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+
+.form-control, .btn-group {
+  box-shadow: none !important;
+  
+  &:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+  }
+}
+
+.btn-outline-primary {
+  &:hover {
+    color: white !important;
+  }
+}
+
+.tab-content {
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 0 0 0.5rem 0.5rem;
+  padding: 0;
+}
+
+.nav-tabs {
+  .nav-link {
+    font-weight: 500;
+    
+    &.active {
+      font-weight: 600;
+    }
+  }
+}
+
+.dropdown-menu {
+  max-height: 300px;
+  overflow-y: auto;
 }

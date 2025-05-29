@@ -77,6 +77,10 @@
   font-size: 0.9rem;
 }
 
+.property-details {
+  font-size: 0.85rem;
+}
+
 /* Tooltip styles */
 .feature-item {
   cursor: default;
@@ -116,7 +120,17 @@
   border-color: #333 transparent transparent transparent;
 }
 
-/* If you want to use Bootstrap tooltips instead, add this: */
-.feature-item [data-bs-toggle="tooltip"] {
+/* Collapsible description */
+[data-bs-toggle="collapse"] {
   cursor: pointer;
+}
+
+.collapse {
+  transition: height 0.3s ease;
+}
+
+/* Badges */
+.badge {
+  padding: 0.35em 0.65em;
+  font-weight: 500;
 }

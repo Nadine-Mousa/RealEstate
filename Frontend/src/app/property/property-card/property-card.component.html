@@ -15,12 +15,14 @@
     
     <!-- Price Tag -->
     <div class="position-absolute top-0 end-0 bg-primary text-white p-2 m-2 rounded">
-      {{Property.Price | currency:'EGP':'symbol':'1.0-0'}}
+      {{Property.Price | currency:'USD':'symbol':'1.0-0'}}
+      <!-- <span *ngIf="Property.SellOrRent === 'rent'" class="d-block small">per month</span> -->
     </div>
     
     <!-- Type Badge -->
     <div class="position-absolute top-0 start-0 bg-dark text-white p-2 m-2 rounded">
       {{Property.PropertyType}}
+      <!-- <span *ngIf="Property.FurnishType" class="d-block small">{{Property.FurnishType}} Furnished</span> -->
     </div>
     
     <!-- Hover Overlay -->
@@ -41,42 +43,106 @@
 
   <div class="card-body">
     <h5 class="card-title">{{Property.Name}}</h5>
+    <p class="card-text text-muted small mb-2" *ngIf="Property.SiteType">
+      <i class="bi bi-building"></i> {{Property.SiteType}}
+    </p>
+    
     <div class="card-text">
       <div class="d-flex align-items-center mb-2">
         <i class="bi bi-geo-alt-fill text-primary me-2"></i>
         <span>{{Property.Address}}</span>
       </div>
-      <div class="d-flex justify-content-between">
-        <!-- Area with tooltip -->
+      
+      <div *ngIf="Property.City || Property.Landmark" class="d-flex flex-wrap mb-3">
+        <span *ngIf="Property.City" class="badge bg-light text-dark me-2 mb-1">
+          <i class="bi bi-geo me-1"></i>{{Property.City}}
+        </span>
+        <span *ngIf="Property.Landmark" class="badge bg-light text-dark me-2 mb-1">
+          <i class="bi bi-signpost me-1"></i>Near {{Property.Landmark}}
+        </span>
+      </div>
+      
+      <div class="d-flex justify-content-between mb-3">
+        <!-- Area -->
         <div class="d-flex align-items-center position-relative feature-item">
           <i class="bi bi-arrows-fullscreen text-primary me-2" 
              data-bs-toggle="tooltip" 
              data-bs-placement="top" 
              title="Total Area"></i>
           <span>{{Property.BuiltArea}} m²</span>
-          <!-- <span class="tooltip-text">Total Area</span> -->
         </div>
         
-        <!-- Bedrooms with tooltip -->
+        <!-- Bedrooms -->
         <div class="d-flex align-items-center position-relative feature-item">
           <i class="bi bi-door-open text-primary me-2" 
              data-bs-toggle="tooltip" 
              data-bs-placement="top" 
              title="Bedrooms"></i>
           <span>{{Property.Bedrooms}}</span>
-          <!-- <span class="tooltip-text">Bedrooms</span> -->
         </div>
         
-        <!-- Bathrooms with tooltip -->
+        <!-- Bathrooms -->
         <div class="d-flex align-items-center position-relative feature-item">
           <i class="bi bi-bucket-fill text-primary me-2" 
              data-bs-toggle="tooltip" 
              data-bs-placement="top" 
              title="Bathrooms"></i>
           <span>{{Property.Bathrooms}}</span>
-          <!-- <span class="tooltip-text">Bathrooms</span> -->
         </div>
       </div>
+      
+      <!-- Additional Details -->
+      <div class="property-details border-top pt-3">
+        <div class="row small">
+          <div class="col-6 mb-2" *ngIf="Property.SellOrRent">
+            <i class="bi bi-tag me-2"></i>
+            For: {{Property.SellOrRent }}
+          </div>
+          <div class="col-6 mb-2" *ngIf="Property.Floor">
+            <i class="bi bi-layers text-primary me-2"></i>
+            Floor: {{Property.Floor}}<span *ngIf="Property.TotalFloor">/{{Property.TotalFloor}}</span>
+          </div>
+          
+          <!-- <div class="col-6 mb-2" *ngIf="Property.AgeOfProperty">
+            <i class="bi bi-clock-history text-primary me-2"></i>
+            Age: {{Property.AgeOfProperty}} yrs
+          </div> -->
+          <!-- <div class="col-6 mb-2" *ngIf="Property.Security">
+            <i class="bi bi-shield-lock text-primary me-2"></i>
+            Security: {{Property.Security | currency:'USD':'symbol':'1.0-0'}}
+          </div> -->
+          <!-- <div class="col-6 mb-2" *ngIf="Property.Maintenance">
+            <i class="bi bi-tools text-primary me-2"></i>
+            Maintenance: {{Property.Maintenance | currency:'USD':'symbol':'1.0-0'}}
+          </div> -->
+          
+          <!-- <div class="col-6 mb-2" *ngIf="Property.ReadyToMove">
+            <i class="bi bi-check-circle text-primary me-2"></i>
+            Ready: {{Property.ReadyToMove}}
+          </div> -->
+          <!-- <div class="col-6 mb-2" *ngIf="Property.GatedCommunity">
+            <i class="bi bi-shield-check text-primary me-2"></i>
+            Gated: {{Property.GatedCommunity}}
+          </div> -->
+          <!-- <div class="col-6 mb-2" *ngIf="Property.MainEntrance">
+            <i class="bi bi-compass text-primary me-2"></i>
+            Entrance: {{Property.MainEntrance}}
+          </div> -->
+        </div>
+      </div>
+      
+      <!-- Description (collapsible) -->
+      <!-- <div *ngIf="Property.Description" class="mt-3">
+        <a class="d-flex align-items-center text-decoration-none" data-bs-toggle="collapse" href="#descriptionCollapse" role="button">
+          <i class="bi bi-card-text text-primary me-2"></i>
+          <span class="small">Description</span>
+          <i class="bi bi-chevron-down ms-auto small"></i>
+        </a>
+        <div class="collapse mt-2 small text-muted" id="descriptionCollapse">
+          {{Property.Description}}
+        </div>
+      </div> -->
+
     </div>
   </div>
 </div>
