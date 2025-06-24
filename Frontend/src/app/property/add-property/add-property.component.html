@@ -1,18 +1,19 @@
 <div class="row">
   <div class="col-8">
     <div class="card">
-      <div class="card-header " >
+      <div class="card-header ">
         <h3 class="mb-0"><i class="bi bi-house-add me-2"></i>List your Property</h3>
       </div>
       <div class="card-body">
-        <form #Form="ngForm">
+        <form (ngSubmit)="onSubmit()" [formGroup]="addPropertyForm">
           <div>
             <tabset #staticTabs>
               <!-- Basic Info -->
-              <tab heading="Basic Info" class="p-3">
+              <tab heading="Basic Info" formGroupName="BasicInfo" class="p-3">
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-tag me-2"></i>I want to</label>
-                  <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.SellOrRent" name="SellOrRent">
+                  <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.SellOrRent"
+                    formControlName="SellOrRent">
                     <label class="btn btn-outline-primary ms-3" btnRadio="Sell" role="button">
                       <i class="bi bi-cash-coin me-1"></i>Sell
                     </label>
@@ -24,7 +25,7 @@
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-house-gear me-2"></i>Furnish Type</label>
-                  <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.FurnishType" name="Furnish">
+                  <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.FurnishType" formControlName="FurnishType">
                     <label class="btn btn-outline-primary ms-3" btnRadio="Semi" role="button">Semi</label>
                     <label class="btn btn-outline-primary" btnRadio="Fully" role="button">Fully</label>
                     <label class="btn btn-outline-primary" btnRadio="Unfurnished" role="button">Unfurnished</label>
@@ -32,150 +33,146 @@
                 </div>
 
                 <div class="form-group mb-4">
-                  <label class="fw-bold mb-2"><i class="bi bi-building me-2"></i>Property Type</label>
-                  <div dropdown container="body">
-                    <button dropdownToggle type="button" class="form-control text-left d-flex justify-content-between align-items-center">
-                      {{ propertyView.PropertyType || 'Select...' }} <i class="bi bi-chevron-down"></i>
-                    </button>
-                    <ul *dropdownMenu class="dropdown-menu w-100">
-                      <li *ngFor="let type of propertyTypes">
-                        <a class="dropdown-item" (click)="propertyView.PropertyType = type">{{ type }}</a>
-                      </li>
-                    </ul>
+                  <label class="fw-bold mb-2"><i class="bi bi-house-gear me-2"></i>Property Type</label>
+                  <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.PropertyType" formControlName="PropertyType">
+                    <label class="btn btn-outline-primary ms-3" btnRadio="Apartment" role="button">Apartment</label>
+                    <label class="btn btn-outline-primary" btnRadio="Villa" role="button">Villa</label>
+                    <label class="btn btn-outline-primary" btnRadio="House" role="button">House</label>
+                    <label class="btn btn-outline-primary" btnRadio="Studio" role="button">Studio</label>
+                    <label class="btn btn-outline-primary" btnRadio="Penthouse" role="button">Penthouse</label>
+                    <label class="btn btn-outline-primary" btnRadio="Duplex" role="button">Duplex</label>
                   </div>
                 </div>
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-house me-2"></i>Property Name</label>
-                  <input type="text" class="form-control" #propName="ngModel" ngModel name="Name" required minlength="5" 
-                         [(ngModel)]="propertyView.Name" placeholder="Enter property name">
-                  <div *ngIf="!propName.valid && propName.touched" class="text-danger small mt-1">
-                    <span *ngIf="propName.errors?.['required']">Please provide name</span>
-                    <span *ngIf="propName.errors?.['minlength']">Name must be at least 5 characters long</span>
-                  </div>
+                  <input [(ngModel)]="propertyView.Name"  type="text" class="form-control" formControlName="Name"
+                     placeholder="Enter property name">
                 </div>
 
                 <div class="row">
                   <div class="col-md-6 form-group mb-4">
                     <label class="fw-bold mb-2"><i class="bi bi-door-open me-2"></i>Bedrooms</label>
-                    <input [(ngModel)]="propertyView.Bedrooms" name="Bedrooms" type="number" class="form-control" 
-                           min="0" placeholder="Number of bedrooms">
+                    <input [(ngModel)]="propertyView.Bedrooms" formControlName="Bedrooms" type="number"
+                      class="form-control" placeholder="Number of bedrooms">
                   </div>
                   <div class="col-md-6 form-group mb-4">
                     <label class="fw-bold mb-2"><i class="bi bi-bucket me-2"></i>Bathrooms</label>
-                    <input [(ngModel)]="propertyView.Bathrooms" name="Bathrooms" type="number" class="form-control" 
-                           min="0" placeholder="Number of bathrooms">
+                    <input [(ngModel)]="propertyView.Bathrooms" formControlName="Bathrooms" type="number"
+                      class="form-control"  placeholder="Number of bathrooms">
                   </div>
                 </div>
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-building me-2"></i>In Building/Compound/Project</label>
-                  <input [(ngModel)]="propertyView.SiteType" name="SiteType" type="text" class="form-control" 
-                         placeholder="Enter building or project name">
+                  <input [(ngModel)]="propertyView.SiteType" formControlName="SiteType" type="text" class="form-control"
+                    placeholder="Enter building or project name">
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
                   <button type="button" class="btn btn-outline-secondary" (click)="onBack()">
                     <i class="bi bi-arrow-left me-1"></i>Back
                   </button>
-                  <button type="button" class="btn btn-primary" (click)="selectTab(1)">
+                  <button type="button" class="btn btn-primary"
+                    (click)="selectTab(1, BasicInfo.valid)">
                     Next <i class="bi bi-arrow-right ms-1"></i>
                   </button>
                 </div>
               </tab>
 
               <!-- Pricing and Area -->
-              <tab heading="Pricing and Area" class="p-3">
+              <tab heading="Pricing and Area" formGroupName="PricingArea" class="p-3">
                 <div class="row">
                   <div class="col-md-6 form-group mb-4">
                     <label class="fw-bold mb-2"><i class="bi bi-tag me-2"></i>Price (in USD)</label>
-                    <input [(ngModel)]="propertyView.Price" name="Price" type="number" class="form-control" 
-                           min="0" placeholder="Enter price">
+                    <input [(ngModel)]="propertyView.Price" formControlName="Price" type="number" class="form-control"
+                       placeholder="Enter price">
                   </div>
                   <div class="col-md-6 form-group mb-4">
                     <label class="fw-bold mb-2"><i class="bi bi-shield-lock me-2"></i>Security (in USD)</label>
-                    <input [(ngModel)]="propertyView.Security" name="Security" type="number" class="form-control" 
-                           min="0" placeholder="Security amount">
+                    <input [(ngModel)]="propertyView.Security" formControlName="Security" type="number"
+                      class="form-control"  placeholder="Security amount">
                   </div>
                 </div>
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-tools me-2"></i>Maintenance (in USD)</label>
-                  <input [(ngModel)]="propertyView.Maintenance" name="Maintenance" type="number" class="form-control" 
-                         min="0" placeholder="Maintenance fee">
+                  <input [(ngModel)]="propertyView.Maintenance" formControlName="Maintenance" type="number"
+                    class="form-control"placeholder="Maintenance fee">
                 </div>
 
                 <div class="row">
                   <div class="col-md-6 form-group mb-4">
                     <label class="fw-bold mb-2"><i class="bi bi-arrows-angle-expand me-2"></i>Built Area (sq ft)</label>
-                    <input [(ngModel)]="propertyView.BuiltArea" name="BuiltArea" type="number" class="form-control" 
-                           min="0" placeholder="Built area">
+                    <input [(ngModel)]="propertyView.BuiltArea" formControlName="BuiltArea" type="number"
+                      class="form-control"  placeholder="Built area">
                   </div>
                   <div class="col-md-6 form-group mb-4">
                     <label class="fw-bold mb-2"><i class="bi bi-border-width me-2"></i>Carpet Area (sq ft)</label>
-                    <input [(ngModel)]="propertyView.CarpetArea" name="CarpetArea" type="number" class="form-control" 
-                           min="0" placeholder="Carpet area">
+                    <input [(ngModel)]="propertyView.CarpetArea" formControlName="CarpetArea" type="number"
+                      class="form-control"  placeholder="Carpet area">
                   </div>
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                  <button type="button" class="btn btn-outline-secondary" (click)="selectTab(0)">
+                  <button type="button" class="btn btn-outline-secondary" (click)="selectTab(0, PricingArea.valid)">
                     <i class="bi bi-arrow-left me-1"></i>Back
                   </button>
-                  <button type="button" class="btn btn-primary" (click)="selectTab(2)">
+                  <button type="button" class="btn btn-primary" (click)="selectTab(2, PricingArea.valid)">
                     Next <i class="bi bi-arrow-right ms-1"></i>
                   </button>
                 </div>
               </tab>
 
               <!-- Address -->
-              <tab heading="Address" class="p-3">
+              <tab heading="Address" formGroupName="Address" class="p-3">
                 <div class="row">
                   <div class="col-md-6 form-group mb-4">
                     <label class="fw-bold mb-2"><i class="bi bi-building me-2"></i>Floor</label>
-                    <input [(ngModel)]="propertyView.Floor" name="Floor" type="text" class="form-control" 
-                           placeholder="Floor number">
+                    <input [(ngModel)]="propertyView.Floor" formControlName="Floor" type="text" class="form-control"
+                      placeholder="Floor number">
                   </div>
                   <div class="col-md-6 form-group mb-4">
                     <label class="fw-bold mb-2"><i class="bi bi-buildings me-2"></i>Total Floors</label>
-                    <input [(ngModel)]="propertyView.TotalFloor" name="TotalFloor" type="text" class="form-control" 
-                           placeholder="Total floors in building">
+                    <input [(ngModel)]="propertyView.TotalFloor" formControlName="TotalFloor" type="text"
+                      class="form-control" placeholder="Total floors in building">
                   </div>
                 </div>
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-geo-alt me-2"></i>City</label>
-                  <input [(ngModel)]="propertyView.City" name="City" type="text" class="form-control" 
-                         placeholder="Enter city">
+                  <input [(ngModel)]="propertyView.City" formControlName="City" type="text" class="form-control"
+                    placeholder="Enter city">
                 </div>
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-signpost me-2"></i>Address</label>
-                  <input [(ngModel)]="propertyView.Address" name="Address" type="text" class="form-control" 
-                         placeholder="Full address">
+                  <input [(ngModel)]="propertyView.Address" formControlName="Address" type="text" class="form-control"
+                    placeholder="Full address">
                 </div>
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-signpost-split me-2"></i>Landmark</label>
-                  <input [(ngModel)]="propertyView.Landmark" name="Landmark" type="text" class="form-control" 
-                         placeholder="Nearby landmark">
+                  <input [(ngModel)]="propertyView.Landmark" formControlName="Landmark" type="text" class="form-control"
+                    placeholder="Nearby landmark">
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                  <button type="button" class="btn btn-outline-secondary" (click)="selectTab(1)">
+                  <button type="button" class="btn btn-outline-secondary" (click)="selectTab(1, Address.valid)">
                     <i class="bi bi-arrow-left me-1"></i>Back
                   </button>
-                  <button type="button" class="btn btn-primary" (click)="selectTab(3)">
+                  <button type="button" class="btn btn-primary" (click)="selectTab(3, Address.valid)">
                     Next <i class="bi bi-arrow-right ms-1"></i>
                   </button>
                 </div>
               </tab>
 
               <!-- Other Details -->
-              <tab heading="Other Details" class="p-3">
+              <tab heading="Other Details" formGroupName="OtherDetails" class="p-3">
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-check-circle me-2"></i>Ready To Move</label>
-                  <div class="btn-group ms-3" btnRadioGroup [(ngModel)]="propertyView.ReadyToMove" name="ReadyToMove">
+                  <div class="btn-group ms-3" btnRadioGroup [(ngModel)]="propertyView.ReadyToMove"
+                    formControlName="ReadyToMove">
                     <label class="btn btn-outline-primary" btnRadio="Yes" role="button">Yes</label>
                     <label class="btn btn-outline-primary" btnRadio="No" role="button">No</label>
                   </div>
@@ -183,21 +180,21 @@
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-calendar me-2"></i>Available From</label>
-                  <input type="text" class="form-control" bsDatepicker 
-                         [bsConfig]="{containerClass: 'theme-dark-blue', dateInputFormat: 'DD-MM-YYYY'}"
-                         [(ngModel)]="propertyView.AvailableFrom" name="AvailableFrom"
-                         placeholder="Select date">
+                  <input type="text" class="form-control" bsDatepicker
+                    [bsConfig]="{containerClass: 'theme-dark-blue', dateInputFormat: 'DD-MM-YYYY'}"
+                    [(ngModel)]="propertyView.AvailableFrom" formControlName="AvailableFrom" placeholder="Select date">
                 </div>
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-clock-history me-2"></i>Age of Property</label>
-                  <input [(ngModel)]="propertyView.AgeOfProperty" name="AgeOfProperty" type="number" 
-                         class="form-control" min="0" placeholder="Years">
+                  <input [(ngModel)]="propertyView.AgeOfProperty" formControlName="AgeOfProperty" type="number"
+                    class="form-control"  placeholder="Years">
                 </div>
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-shield-check me-2"></i>Gated Community</label>
-                  <div class="btn-group ms-3" btnRadioGroup [(ngModel)]="propertyView.GatedCommunity" name="GatedCommunity">
+                  <div class="btn-group ms-3" btnRadioGroup [(ngModel)]="propertyView.GatedCommunity"
+                    formControlName="GatedCommunity">
                     <label class="btn btn-outline-primary" btnRadio="Yes" role="button">Yes</label>
                     <label class="btn btn-outline-primary" btnRadio="No" role="button">No</label>
                   </div>
@@ -205,7 +202,8 @@
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-compass me-2"></i>Main Entrance</label>
-                  <div class="btn-group ms-3" btnRadioGroup [(ngModel)]="propertyView.MainEntrance" name="MainEntrance">
+                  <div class="btn-group ms-3" btnRadioGroup [(ngModel)]="propertyView.MainEntrance"
+                    formControlName="MainEntrance">
                     <label class="btn btn-outline-primary" btnRadio="North" role="button">North</label>
                     <label class="btn btn-outline-primary" btnRadio="South" role="button">South</label>
                     <label class="btn btn-outline-primary" btnRadio="East" role="button">East</label>
@@ -215,22 +213,22 @@
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-card-text me-2"></i>Description</label>
-                  <textarea [(ngModel)]="propertyView.Description" name="Description" class="form-control" 
-                            rows="5" placeholder="Detailed description of the property"></textarea>
+                  <textarea [(ngModel)]="propertyView.Description" formControlName="Description" class="form-control"
+                    rows="5" placeholder="Detailed description of the property"></textarea>
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                  <button type="button" class="btn btn-outline-secondary" (click)="selectTab(2)">
+                  <button type="button" class="btn btn-outline-secondary" (click)="selectTab(2, OtherDetails.invalid)">
                     <i class="bi bi-arrow-left me-1"></i>Back
                   </button>
-                  <button type="button" class="btn btn-primary" (click)="selectTab(4)">
+                  <button type="button" class="btn btn-primary" (click)="selectTab(4, OtherDetails.invalid)">
                     Next <i class="bi bi-arrow-right ms-1"></i>
                   </button>
                 </div>
               </tab>
 
               <!-- Photos -->
-              <tab heading="Photos" class="p-3">
+              <tab heading="Photos" formGroupName="Photos" class="p-3">
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-images me-2"></i>Property Photos</label>
                   <div class="photo-control d-flex flex-column align-items-center justify-content-center">
@@ -243,14 +241,15 @@
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                  <button type="button" class="btn btn-outline-secondary" (click)="selectTab(3)">
+                  <button type="button" class="btn btn-outline-secondary" (click)="selectTab(3, true)">
                     <i class="bi bi-arrow-left me-1"></i>Back
                   </button>
-                  <button type="button" class="btn btn-success" [disabled]="!Form.valid">
+                  <button type="submit" class="btn btn-success">
                     <i class="bi bi-check-circle me-1"></i>Submit Property
                   </button>
                 </div>
               </tab>
+
             </tabset>
           </div>
         </form>
@@ -264,7 +263,7 @@
         <h3 class="mb-0"><i class="bi bi-eye me-2"></i>Property Preview</h3>
       </div>
       <div class="card-body">
-        <app-property-card [Property]="propertyView"></app-property-card>
+        <app-property-card [Property]="propertyView" [HideIcons]="true"></app-property-card>
       </div>
     </div>
   </div>

@@ -26,7 +26,7 @@
     </div>
     
     <!-- Hover Overlay -->
-    <div class="image-overlay d-flex flex-column justify-content-center align-items-center">
+    <div *ngIf="!HideIcons" class="image-overlay d-flex flex-column justify-content-center align-items-center">
       <div class="btn-group">
         <button class="btn btn-light btn-icon mx-1" title="Contact">
           <i class="bi bi-telephone-fill"></i>
@@ -48,10 +48,10 @@
     </p>
     
     <div class="card-text">
-      <div class="d-flex align-items-center mb-2">
+      <!-- <div class="d-flex align-items-center mb-2">
         <i class="bi bi-geo-alt-fill text-primary me-2"></i>
         <span>{{Property.Address}}</span>
-      </div>
+      </div> -->
       
       <div *ngIf="Property.City || Property.Landmark" class="d-flex flex-wrap mb-3">
         <span *ngIf="Property.City" class="badge bg-light text-dark me-2 mb-1">

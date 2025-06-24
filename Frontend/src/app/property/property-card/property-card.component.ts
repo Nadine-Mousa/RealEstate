@@ -10,6 +10,7 @@ import { IProperty } from '../iproperty';
 })
 export class PropertyCardComponent implements OnInit {
   @Input() Property: IProperty;
+  @Input() HideIcons: boolean;
 
   ngOnInit() {
     // Initialize Bootstrap tooltips if using them
