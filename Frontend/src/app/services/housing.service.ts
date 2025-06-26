@@ -17,9 +17,12 @@ export class HousingService {
 
         if(!category) return properties;
 
-        
+
         return properties.filter( p => p.SellOrRent.toLowerCase() == category.toLowerCase());
       })
     )
+  }
+  getAllCities(): Observable<string[]>{
+    return this.httpClient.get<string[]>("https://localhost:7124/api/City");
   }
 }

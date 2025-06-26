@@ -141,8 +141,11 @@
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-geo-alt me-2"></i>City</label>
-                  <input [(ngModel)]="propertyView.City" formControlName="City" type="text" class="form-control"
+                  <select [(ngModel)]="propertyView.City" formControlName="City" class="form-control"
                     placeholder="Enter city">
+                    <option value="" selected>--Select city--</option>
+                    <option *ngFor="let city of Cities" value={{city}}>{{city}}</option>
+                    </select>
                 </div>
 
                 <div class="form-group mb-4">

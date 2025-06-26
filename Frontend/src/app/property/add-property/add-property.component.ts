@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownConfig, BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FurnishType, IProperty, PropertyType } from '../iproperty';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { HousingService } from 'src/app/services/housing.service';
 
 
 @Component({
@@ -20,11 +21,12 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 export class AddPropertyComponent implements OnInit {
   @ViewChild('staticTabs', { static: false }) staticTabs?: TabsetComponent;
   addPropertyForm: FormGroup;
-  
+  Cities: string[];
+
   // Available options
   propertyTypes: PropertyType[] = ['Apartment', 'Villa', 'House', 'Studio', 'Penthouse', 'Duplex'];
   furnishTypes: FurnishType[] = ['Semi', 'Fully', 'Unfurnished'];
-  
+
   // Selected values
   selectedPropertyType: PropertyType = 'Apartment'; // Default
   selectedFurnishType: FurnishType = 'Semi'; // Default
@@ -48,7 +50,7 @@ export class AddPropertyComponent implements OnInit {
     Floor : null,
     TotalFloor: null,
     Address: null,
-    City: null,
+    City: "",
     Landmark: null,
     ReadyToMove: null,
     AvailableFrom: null,
@@ -58,7 +60,7 @@ export class AddPropertyComponent implements OnInit {
     Description: null,
   };
 
-  constructor(private router: Router, private fb: FormBuilder) { }
+  constructor(private router: Router, private fb: FormBuilder, private housingService: HousingService) { }
   openDropdown: string | null = null;
   isCollapsed = true;
 
@@ -68,6 +70,12 @@ export class AddPropertyComponent implements OnInit {
 
   ngOnInit() {
     this.CreateAddPropertyForm();
+    this.housingService.getAllCities().subscribe(
+      data => {
+        console.log(data);
+        this.Cities = data;
+      }
+    )
   }
 
   onBack(){

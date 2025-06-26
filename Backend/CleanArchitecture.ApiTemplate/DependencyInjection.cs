@@ -14,6 +14,7 @@ namespace CleanArchitecture.Api
                 opts.SignIn.RequireConfirmedEmail = true);
 
             services.AddControllers();
+            services.AddCors();
             services.AddEndpointsApiExplorer();
 
             #region Swagger

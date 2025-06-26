@@ -92,9 +92,10 @@ namespace CleanArchitecture.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseRouting();
             app.UseStaticFiles();
             app.UseHttpsRedirection();
+            app.UseCors(m => m.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
