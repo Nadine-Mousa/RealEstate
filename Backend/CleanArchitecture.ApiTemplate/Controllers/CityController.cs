@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CleanArchitecture.DataAccess.Contexts;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Api.Controllers
 {
@@ -7,15 +9,24 @@ namespace CleanArchitecture.Api.Controllers
     [ApiController]
     public class CityController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly ApplicationDbContext _dbContext;
+        public CityController(ApplicationDbContext dbContext)
         {
-            return new string[] { "Atlanta", "New York", "Cairo" };
+            this._dbContext = dbContext;
+        }
+        [HttpGet]
+        public IActionResult Get()
+        {
+            var cities = this._dbContext.Cities.ToList();
+            return Ok(cities);
+            
         }
         [HttpGet("id")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return ("City of id: " + id);
+            var city = _dbContext.Cities.Find(id);
+            if (city != null) return Ok(city);
+            return NotFound("Invalid Id");
         }
     }
 }

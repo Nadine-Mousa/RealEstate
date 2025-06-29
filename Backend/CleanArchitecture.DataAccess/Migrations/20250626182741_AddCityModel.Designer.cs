@@ -4,6 +4,7 @@ using CleanArchitecture.DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanArchitecture.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250626182741_AddCityModel")]
+    partial class AddCityModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,57 +121,6 @@ namespace CleanArchitecture.DataAccess.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("CleanArchitecture.DataAccess.Models.FurnishType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FurnishTypes");
-                });
-
-            modelBuilder.Entity("CleanArchitecture.DataAccess.Models.MainEntrance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Direction")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("mainEntrances");
-                });
-
-            modelBuilder.Entity("CleanArchitecture.DataAccess.Models.PropertyType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PropertyTypes");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -198,14 +150,14 @@ namespace CleanArchitecture.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "888e1967-4c3a-4fe7-9a22-195df27f3179",
+                            Id = "039475c1-1aa5-4d50-a33b-69769321cb56",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "17021f97-d273-4e4d-b6f9-ed534c51ec72",
+                            Id = "4d71fd83-feda-40be-83fb-9974557564ff",
                             ConcurrencyStamp = "2",
                             Name = "User",
                             NormalizedName = "User"

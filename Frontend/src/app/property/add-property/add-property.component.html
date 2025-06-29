@@ -24,24 +24,17 @@
                 </div>
 
                 <div class="form-group mb-4">
-                  <label class="fw-bold mb-2"><i class="bi bi-house-gear me-2"></i>Furnish Type</label>
-                  <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.FurnishType" formControlName="FurnishType">
-                    <label class="btn btn-outline-primary ms-3" btnRadio="Semi" role="button">Semi</label>
-                    <label class="btn btn-outline-primary" btnRadio="Fully" role="button">Fully</label>
-                    <label class="btn btn-outline-primary" btnRadio="Unfurnished" role="button">Unfurnished</label>
+                  <label class="fw-bold mb-2 me-3"><i class="bi bi-house-gear me-2"></i>Furnish Type</label>
+                  <div class="btn-group me-3" btnRadioGroup [(ngModel)]="propertyView.FurnishType" formControlName="FurnishType">
+                    <label *ngFor="let type of FurnishTypes" class="btn btn-outline-primary" btnRadio="{{type.id}}" role="button">{{type.name}}</label>
                   </div>
                 </div>
 
                 <div class="form-group mb-4">
-                  <label class="fw-bold mb-2"><i class="bi bi-house-gear me-2"></i>Property Type</label>
+                  <label class="fw-bold mb-2 me-3"><i class="bi bi-house-gear me-2"></i>Property Type</label>
                   <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.PropertyType" formControlName="PropertyType">
-                    <label class="btn btn-outline-primary ms-3" btnRadio="Apartment" role="button">Apartment</label>
-                    <label class="btn btn-outline-primary" btnRadio="Villa" role="button">Villa</label>
-                    <label class="btn btn-outline-primary" btnRadio="House" role="button">House</label>
-                    <label class="btn btn-outline-primary" btnRadio="Studio" role="button">Studio</label>
-                    <label class="btn btn-outline-primary" btnRadio="Penthouse" role="button">Penthouse</label>
-                    <label class="btn btn-outline-primary" btnRadio="Duplex" role="button">Duplex</label>
-                  </div>
+                    <label *ngFor="let type of PropertyTypes " class="btn btn-outline-primary" btnRadio="{{type.id}}" role="button">{{type.name}}</label>
+                    </div>
                 </div>
 
                 <div class="form-group mb-4">
@@ -144,7 +137,7 @@
                   <select [(ngModel)]="propertyView.City" formControlName="City" class="form-control"
                     placeholder="Enter city">
                     <option value="" selected>--Select city--</option>
-                    <option *ngFor="let city of Cities" value={{city}}>{{city}}</option>
+                    <option *ngFor="let city of Cities" value={{city.id}}>{{city.name}}</option>
                     </select>
                 </div>
 
@@ -207,10 +200,7 @@
                   <label class="fw-bold mb-2"><i class="bi bi-compass me-2"></i>Main Entrance</label>
                   <div class="btn-group ms-3" btnRadioGroup [(ngModel)]="propertyView.MainEntrance"
                     formControlName="MainEntrance">
-                    <label class="btn btn-outline-primary" btnRadio="North" role="button">North</label>
-                    <label class="btn btn-outline-primary" btnRadio="South" role="button">South</label>
-                    <label class="btn btn-outline-primary" btnRadio="East" role="button">East</label>
-                    <label class="btn btn-outline-primary" btnRadio="West" role="button">West</label>
+                    <label *ngFor="let entrance of MainEntrances" class="btn btn-outline-primary" btnRadio="{{entrance.id}}" role="button">{{entrance.direction}}</label>
                   </div>
                 </div>
 

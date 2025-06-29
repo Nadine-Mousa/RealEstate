@@ -25,4 +25,13 @@ export class HousingService {
   getAllCities(): Observable<string[]>{
     return this.httpClient.get<string[]>("https://localhost:7124/api/City");
   }
+  getAllPropertyTypes(): Observable<string[]>{
+    return this.httpClient.get<string[]>("https://localhost:7124/api/Property/GetPropertyTypes");
+  }
+  getFurnishTypes(): Observable<string[]>{
+    return this.httpClient.get<string[]>("https://localhost:7124/api/Property/GetFurnishTypes");
+  }
+  getMainEntrances(): Observable<string[]>{
+    return this.httpClient.get<string[]>("https://localhost:7124/api/Property/GetMainEntrances");
+  }
 }

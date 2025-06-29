@@ -9,6 +9,10 @@ namespace CleanArchitecture.DataAccess.Contexts
     public class ApplicationDbContext: IdentityDbContext<ApplicationUser>
     {
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<FurnishType> FurnishTypes { get; set; }
+        public DbSet<PropertyType> PropertyTypes { get; set; }
+        public DbSet<MainEntrance> mainEntrances { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 

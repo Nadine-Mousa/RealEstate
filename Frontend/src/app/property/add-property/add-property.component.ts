@@ -21,11 +21,11 @@ import { HousingService } from 'src/app/services/housing.service';
 export class AddPropertyComponent implements OnInit {
   @ViewChild('staticTabs', { static: false }) staticTabs?: TabsetComponent;
   addPropertyForm: FormGroup;
-  Cities: string[];
+  Cities: any[];
+  PropertyTypes: any[];
+  FurnishTypes: any[];
+  MainEntrances: any[];
 
-  // Available options
-  propertyTypes: PropertyType[] = ['Apartment', 'Villa', 'House', 'Studio', 'Penthouse', 'Duplex'];
-  furnishTypes: FurnishType[] = ['Semi', 'Fully', 'Unfurnished'];
 
   // Selected values
   selectedPropertyType: PropertyType = 'Apartment'; // Default
@@ -76,6 +76,22 @@ export class AddPropertyComponent implements OnInit {
         this.Cities = data;
       }
     )
+    this.housingService.getAllPropertyTypes().subscribe(
+      data => {
+        this.PropertyTypes = data;
+      }
+    )
+    this.housingService.getFurnishTypes().subscribe(
+      data => {
+        this.FurnishTypes = data;
+      }
+    )
+    this.housingService.getMainEntrances().subscribe(
+      data => {
+        this.MainEntrances = data;
+      }
+    )
+
   }
 
   onBack(){
