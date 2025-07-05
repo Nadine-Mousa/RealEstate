@@ -22,27 +22,27 @@ namespace CleanArchitecture.DataAccess.Repository
             _dbset = _dbContext.Set<T>();
         }
 
-        public void Add(T entity)
+        public async Task Add(T entity)
         {
-            _dbset.Add(entity);
+            await _dbset.AddAsync(entity);
         }
 
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
             _dbContext.Update(entity);
         }
 
-        public void Delete(T entity)
+        public async Task Delete(T entity)
         {
             _dbset.Remove(entity);
         }
 
-        public void DeleteRange(IEnumerable<T> entities)
+        public async Task DeleteRange(IEnumerable<T> entities)
         {
             _dbset.RemoveRange(entities);
         }
 
-        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = false)
+        public async Task<T> Get(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = false)
         {
             IQueryable<T> query = tracked ? _dbset : _dbset.AsNoTracking();
             query = query.Where(filter);
@@ -55,9 +55,9 @@ namespace CleanArchitecture.DataAccess.Repository
                 }
             }
 
-            return query.FirstOrDefault();
+            return await query.FirstOrDefaultAsync();
         }
-        public IQueryable<T> GetAllQuery(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        public async Task<IQueryable<T>> GetAllQuery(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
         {
             IQueryable<T> query = _dbset;
 
@@ -78,7 +78,7 @@ namespace CleanArchitecture.DataAccess.Repository
         }
 
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        public async Task<IEnumerable<T>> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
         {
             IQueryable<T> query = _dbset;
 

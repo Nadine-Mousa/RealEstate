@@ -45,7 +45,7 @@ namespace CleanArchitecture.Api.Controllers
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var cityFromDb = this._unitOfWork.CityRepository.Get(c => c.Id == id);
+            var cityFromDb = await this._unitOfWork.CityRepository.Get(c => c.Id == id);
             if (cityFromDb == null)
             {
                 return NotFound("No city found with such Id");
