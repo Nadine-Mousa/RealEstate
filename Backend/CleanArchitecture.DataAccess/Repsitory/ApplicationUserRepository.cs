@@ -4,7 +4,7 @@ using CleanArchitecture.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace CleanArchitecture.DataAccess.Repsitory
+namespace CleanArchitecture.DataAccess.Repository
 {
     public class ApplicationUserRepository : IApplicationUserRepository
     {

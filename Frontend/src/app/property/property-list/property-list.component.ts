@@ -19,12 +19,12 @@ export class PropertyListComponent implements OnInit {
   ngOnInit(): void {
     // Get category from URL (expecting '/properties/sale' or '/properties/rent')
     const urlSegment = this.route.snapshot.url[1]?.path;
-    
+
     // // Map URL to category
-    this.currentCategory = 
-      urlSegment === 'sale' ? 'sale' : 
-      urlSegment === 'rent' ? 'rent' : 
-      null;  
+    this.currentCategory =
+      urlSegment === 'sale' ? 'sale' :
+      urlSegment === 'rent' ? 'rent' :
+      null;
 
       this.housingService.getAllProperties(this.currentCategory).subscribe(
         data => {
@@ -32,6 +32,12 @@ export class PropertyListComponent implements OnInit {
         },
         errors => {
             console.log(errors)
+        }
+      );
+      this.housingService.getProperties().subscribe(
+        data => {
+          console.log("Properties from api databae: " + data);
+          // this.Properties = data;
         }
       );
 

@@ -2,7 +2,7 @@
 using CleanArchitecture.DataAccess.IRepository;
 using CleanArchitecture.DataAccess.IUnitOfWorks;
 using CleanArchitecture.DataAccess.UnitOfWorks;
-using CleanArchitecture.DataAccess.Repsitory;
+using CleanArchitecture.DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +24,7 @@ namespace CleanArchitecture.DataAccess
             options.UseSqlServer(config.GetConnectionString("Cs")),
             ServiceLifetime.Scoped);
 
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            //services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
 

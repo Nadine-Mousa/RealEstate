@@ -5,7 +5,7 @@ using CleanArchitecture.DataAccess.Contexts;
 using CleanArchitecture.DataAccess.IRepository;
 using CleanArchitecture.DataAccess.IUnitOfWorks;
 using CleanArchitecture.DataAccess.Models;
-using CleanArchitecture.DataAccess.Repsitory;
+using CleanArchitecture.DataAccess.Repository;
 using CleanArchitecture.Services;
 using CleanArchitecture.Services.Interfaces;
 using CleanArchitecture.Services.Services;

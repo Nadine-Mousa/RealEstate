@@ -9,9 +9,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.DataAccess.Repsitory
+namespace CleanArchitecture.DataAccess.Repository
 {
-    public class Repository<T> : IRepository<T> where T : ModelBase
+    public class Repository<T> : IRepository<T> where T : class
     {
         private readonly ApplicationDbContext _dbContext;
         internal DbSet<T> _dbset;

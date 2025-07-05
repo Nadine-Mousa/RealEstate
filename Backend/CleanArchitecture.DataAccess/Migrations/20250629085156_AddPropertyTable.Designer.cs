@@ -4,6 +4,7 @@ using CleanArchitecture.DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanArchitecture.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250629085156_AddPropertyTable")]
+    partial class AddPropertyTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -164,10 +167,10 @@ namespace CleanArchitecture.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("AgeOfProperty")
+                    b.Property<int>("AgeOfProperty")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("AvailableFrom")
+                    b.Property<DateTime>("AvailableFrom")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Bathrooms")
@@ -179,34 +182,36 @@ namespace CleanArchitecture.DataAccess.Migrations
                     b.Property<double>("BuiltArea")
                         .HasColumnType("float");
 
-                    b.Property<double?>("CarpetArea")
+                    b.Property<double>("CarpetArea")
                         .HasColumnType("float");
 
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Floor")
+                    b.Property<int>("Floor")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FurnishTypeId")
+                    b.Property<int>("FurnishTypeId")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("GatedCommunity")
+                    b.Property<bool>("GatedCommunity")
                         .HasColumnType("bit");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Landmark")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MainEntranceId")
+                    b.Property<int>("MainEntranceId")
                         .HasColumnType("int");
 
-                    b.Property<double?>("Maintenance")
+                    b.Property<double>("Maintenance")
                         .HasColumnType("float");
 
                     b.Property<string>("Name")
@@ -219,19 +224,20 @@ namespace CleanArchitecture.DataAccess.Migrations
                     b.Property<int>("PropertyTypeId")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("ReadyToMove")
+                    b.Property<bool>("ReadyToMove")
                         .HasColumnType("bit");
 
-                    b.Property<double?>("Security")
+                    b.Property<double>("Security")
                         .HasColumnType("float");
 
                     b.Property<int>("SellOrRent")
                         .HasColumnType("int");
 
                     b.Property<string>("SiteType")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TotalFloor")
+                    b.Property<int>("TotalFloor")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -293,14 +299,14 @@ namespace CleanArchitecture.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d5d3f6f4-1dd2-4a61-809e-0336ceb801a9",
+                            Id = "7769fce3-fb04-4186-8311-512159ff89fe",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "5ca75fc7-7564-4bdb-befb-16b1005f0318",
+                            Id = "5c61dd0b-0953-4dd2-8241-115f5a9478a9",
                             ConcurrencyStamp = "2",
                             Name = "User",
                             NormalizedName = "User"
@@ -423,11 +429,15 @@ namespace CleanArchitecture.DataAccess.Migrations
 
                     b.HasOne("CleanArchitecture.DataAccess.Models.FurnishType", "FurnishType")
                         .WithMany()
-                        .HasForeignKey("FurnishTypeId");
+                        .HasForeignKey("FurnishTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CleanArchitecture.DataAccess.Models.MainEntrance", "MainEntrance")
                         .WithMany()
-                        .HasForeignKey("MainEntranceId");
+                        .HasForeignKey("MainEntranceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CleanArchitecture.DataAccess.Models.PropertyType", "PropertyType")
                         .WithMany()

@@ -1,6 +1,9 @@
 <p>
   property-details works! Id: {{propertyId}}
 </p>
+<p *ngIf="Property != null">
+  This is from Backend : {{Property.name}}
+</p>
 <button class="btn btn-primary" (click)="onPrevious()" >Previous</button>
 <button class="btn btn-primary" (click)="onNext()">Next</button>
 

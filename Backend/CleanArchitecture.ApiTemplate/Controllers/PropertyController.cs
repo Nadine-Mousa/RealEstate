@@ -1,6 +1,7 @@
 ﻿using CleanArchitecture.DataAccess.Contexts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Api.Controllers
 {
@@ -14,23 +15,49 @@ namespace CleanArchitecture.Api.Controllers
             this._dbContext = dbContext;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllProperties()
+        {
+            var properties = await _dbContext.Properties.ToListAsync();
+            return Ok(properties);
+        }
+        [HttpGet("id")]
+        public async Task<IActionResult> GetProperty(int id)
+        {
+            var property = await _dbContext.Properties.FirstOrDefaultAsync(p => p.Id == id);
+            if(property == null) { return NotFound("No property found for this Id"); }
+            return Ok(property);
+        }
+
+        [HttpDelete("id")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var propertyToBeDeleted = await _dbContext.Properties.FirstOrDefaultAsync(p => p.Id == id);
+            if(propertyToBeDeleted == null)
+            {
+                return NotFound("NO such property found");
+            }
+            _dbContext.Properties.Remove(propertyToBeDeleted);
+            await _dbContext.SaveChangesAsync();
+            return Ok("Property Deleted");
+        }
         // Get Property Related Data
         [HttpGet("GetFurnishTypes")]
-        public ActionResult GetFurnishTypes()
+        public async Task<ActionResult> GetFurnishTypes()
         {
-            var furnishtypes = _dbContext.FurnishTypes.ToList();
+            var furnishtypes = await _dbContext.FurnishTypes.ToListAsync();
             return Ok(furnishtypes);
         }
         [HttpGet("GetPropertyTypes")]
-        public ActionResult GetPropertyTypes()
+        public async Task<ActionResult> GetPropertyTypes()
         {
-            var propertyTypes = _dbContext.PropertyTypes.ToList();
+            var propertyTypes = await _dbContext.PropertyTypes.ToListAsync();
             return Ok(propertyTypes);
         }
         [HttpGet("GetMainEntrances")]
-        public ActionResult GetMainEntrances()
+        public async Task<ActionResult> GetMainEntrances()
         {
-            var mainEntrances = _dbContext.mainEntrances.ToList();
+            var mainEntrances = await _dbContext.mainEntrances.ToListAsync();
             return Ok(mainEntrances);
         }
 

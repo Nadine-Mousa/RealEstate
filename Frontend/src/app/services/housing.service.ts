@@ -22,6 +22,12 @@ export class HousingService {
       })
     )
   }
+  getProperties(): Observable<IProperty[]>{
+    return this.httpClient.get<IProperty[]>("https://localhost:7124/api/Property");
+  }
+  getProperty(id: number) : Observable<IProperty>{
+    return this.httpClient.get<IProperty>("https://localhost:7124/api/Property/id?id="+id);
+  }
   getAllCities(): Observable<string[]>{
     return this.httpClient.get<string[]>("https://localhost:7124/api/City");
   }
@@ -34,4 +40,5 @@ export class HousingService {
   getMainEntrances(): Observable<string[]>{
     return this.httpClient.get<string[]>("https://localhost:7124/api/Property/GetMainEntrances");
   }
+
 }

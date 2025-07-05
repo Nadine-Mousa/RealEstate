@@ -13,6 +13,7 @@ namespace CleanArchitecture.DataAccess.Contexts
         public DbSet<FurnishType> FurnishTypes { get; set; }
         public DbSet<PropertyType> PropertyTypes { get; set; }
         public DbSet<MainEntrance> mainEntrances { get; set; }
+        public DbSet<Property> Properties { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 

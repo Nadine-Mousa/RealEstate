@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace CleanArchitecture.DataAccess.IRepository
 {
-    public interface IRepository<T> where T : ModelBase
+    public interface IRepository<T> where T : class
     {
         IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null);
 

@@ -1,7 +1,7 @@
 ﻿using CleanArchitecture.DataAccess.Contexts;
-using Microsoft.AspNetCore.Http;
+using CleanArchitecture.DataAccess.IUnitOfWorks;
+using CleanArchitecture.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Api.Controllers
 {
@@ -9,24 +9,53 @@ namespace CleanArchitecture.Api.Controllers
     [ApiController]
     public class CityController : ControllerBase
     {
-        private readonly ApplicationDbContext _dbContext;
-        public CityController(ApplicationDbContext dbContext)
+        private readonly IUnitOfWork _unitOfWork;
+        public CityController(IUnitOfWork unitOfWork)
         {
-            this._dbContext = dbContext;
+            this._unitOfWork = unitOfWork;
         }
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var cities = this._dbContext.Cities.ToList();
+            var cities = this._unitOfWork.CityRepository.GetAll();
             return Ok(cities);
-            
+
         }
-        [HttpGet("id")]
-        public IActionResult Get(int id)
+
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> Get(int id)
         {
-            var city = _dbContext.Cities.Find(id);
+            var city = this._unitOfWork.CityRepository.Get(c => c.Id == id);
             if (city != null) return Ok(city);
             return NotFound("Invalid Id");
         }
+
+        [HttpPost("add")]
+        public async Task<IActionResult> AddCity(City city)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest("Invalid inputs. Please, try again.");
+            }
+            this._unitOfWork.CityRepository.Add(city);
+            await this._unitOfWork.Save();
+            return Ok("City Added Successfully");
+        }
+        [HttpDelete("delete")]
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var cityFromDb = this._unitOfWork.CityRepository.Get(c => c.Id == id);
+            if (cityFromDb == null)
+            {
+                return NotFound("No city found with such Id");
+            }
+
+            this._unitOfWork.CityRepository.Delete(cityFromDb);
+            await this._unitOfWork.Save();
+            return Ok("Deleted Successfully city with id " + id);
+        }
+    
+    
     }
 }
