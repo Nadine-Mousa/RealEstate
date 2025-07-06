@@ -5,13 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.DataAccess.Models
+namespace CleanArchitecture.DataAccess.Models.DTOs
 {
-    public class City
+    public class CityDto
     {
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public DateTime? LastUpdatedOn { get; set; }
     }
 }
