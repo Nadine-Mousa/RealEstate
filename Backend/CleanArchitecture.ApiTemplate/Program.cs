@@ -1,19 +1,15 @@
-
 using BrainHope.Services.DTO.Email;
 using CleanArchitecture.DataAccess;
 using CleanArchitecture.DataAccess.Contexts;
-using CleanArchitecture.DataAccess.IRepository;
-using CleanArchitecture.DataAccess.IUnitOfWorks;
 using CleanArchitecture.DataAccess.Models;
-using CleanArchitecture.DataAccess.Repository;
 using CleanArchitecture.Services;
 using CleanArchitecture.Services.Interfaces;
 using CleanArchitecture.Services.Services;
+using CleanArchitecture.Utilities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using StackExchange.Redis;
 using System.Text;
 using Utilites;
@@ -37,6 +33,11 @@ namespace CleanArchitecture.Api
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            builder.Services.AddAutoMapper(cfg =>
+            {
+                cfg.AddMaps(typeof(AutomapperProfiles).Assembly);
+            });
 
             #region JWT
             // JWT config

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CleanArchitecture.Utilities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 
 namespace CleanArchitecture.Api
@@ -16,6 +17,8 @@ namespace CleanArchitecture.Api
             services.AddControllers();
             services.AddCors();
             services.AddEndpointsApiExplorer();
+
+
 
             #region Swagger
             services.AddSwaggerGen(swagger =>

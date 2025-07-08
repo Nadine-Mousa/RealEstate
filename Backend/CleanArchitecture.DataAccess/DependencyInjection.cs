@@ -28,6 +28,8 @@ namespace CleanArchitecture.DataAccess
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
 
+            
+
             return services;
         }
     }

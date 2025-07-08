@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Services.Interfaces;
 using CleanArchitecture.Services.Services;
+using CleanArchitecture.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace CleanArchitecture.Services
         {
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IOtpService, OtpService>();
+
+
             return services;
         }
     }
