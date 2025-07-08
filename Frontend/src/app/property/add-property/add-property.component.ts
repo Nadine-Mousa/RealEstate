@@ -25,11 +25,8 @@ export class AddPropertyComponent implements OnInit {
   PropertyTypes: any[];
   FurnishTypes: any[];
   MainEntrances: any[];
+  currentTabIndex = 0;
 
-
-  // Selected values
-  selectedPropertyType: PropertyType = 'Apartment'; // Default
-  selectedFurnishType: FurnishType = 'Semi'; // Default
 
 
   propertyView : IProperty = {
@@ -70,6 +67,7 @@ export class AddPropertyComponent implements OnInit {
 
   ngOnInit() {
     this.CreateAddPropertyForm();
+    this.currentTabIndex = 0;
     this.housingService.getAllCities().subscribe(
       data => {
         console.log(data);
@@ -94,6 +92,7 @@ export class AddPropertyComponent implements OnInit {
 
   }
 
+  // Events
   onBack(){
     this.router.navigate(['/'])
   }
@@ -101,13 +100,38 @@ export class AddPropertyComponent implements OnInit {
     console.log('form submitted');
     console.log(this.addPropertyForm.value);
   }
-  selectTab(tabId: number, IsCurrentTabValid: boolean) {
-    if (this.staticTabs?.tabs[tabId] && IsCurrentTabValid) {
-      this.staticTabs.tabs[tabId].active = true;
-    }
+
+  // Tabs Functions
+
+
+  selectTab(tabId: number) {
+  if (this.isTabValid(this.currentTabIndex)) {
+    this.currentTabIndex = tabId;
+    this.staticTabs.tabs[tabId].active = true;
+  } else {
+    this.markTabAsTouched(this.currentTabIndex);
+  }
   }
 
 
+
+  isTabValid(tabIndex: number): boolean {
+    const tabGroups = ['BasicInfo', 'PricingArea', 'Address', 'OtherDetails', 'Photos'];
+    return this.addPropertyForm.get(tabGroups[tabIndex])?.valid || false;
+  }
+
+   // selectTab(tabId: number, IsCurrentTabValid: boolean) {
+  //   if (this.staticTabs?.tabs[tabId] && IsCurrentTabValid) {
+  //     this.staticTabs.tabs[tabId].active = true;
+  //   }
+  // }
+
+
+  private markTabAsTouched(tabIndex: number) {
+    const tabGroup = Object.keys(this.addPropertyForm.controls)[tabIndex];
+    const group = this.addPropertyForm.get(tabGroup) as FormGroup;
+    Object.values(group.controls).forEach(control => control.markAsTouched());
+  }
 
 
 
@@ -117,10 +141,10 @@ export class AddPropertyComponent implements OnInit {
     BasicInfo: this.fb.group({
       SellOrRent: ['', Validators.required],
       PropertyType: ['', Validators.required],
-      Name: ['', [Validators.required, Validators.minLength(5)]],
+      Name: ['', [Validators.required]],
       FurnishType: ['', Validators.required],
       Bedrooms: ['', [Validators.required, Validators.min(0)]],
-      Bathrooms: ['', [Validators.required, Validators.min(0)]],
+      Bathrooms: ['', [Validators.required, Validators.min(1)]],
       SiteType: ['']
     }),
 
@@ -159,7 +183,7 @@ export class AddPropertyComponent implements OnInit {
   });
 }
 
-  //#region Getters
+  // Getters
   get BasicInfo(){
     return this.addPropertyForm.controls.BasicInfo as FormGroup;
   }
@@ -172,6 +196,6 @@ export class AddPropertyComponent implements OnInit {
   get OtherDetails(){
     return this.addPropertyForm.controls.OtherDetails as FormGroup;
   }
-  //#endregion
+
 
 }

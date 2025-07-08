@@ -9,7 +9,7 @@
           <div>
             <tabset #staticTabs>
               <!-- Basic Info -->
-              <tab heading="Basic Info" formGroupName="BasicInfo" class="p-3">
+              <tab heading="Basic Info" formGroupName="BasicInfo" [class.invalid-tab]="!isTabValid(0)" class="p-3">
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-tag me-2"></i>I want to</label>
                   <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.SellOrRent"
@@ -21,26 +21,48 @@
                       <i class="bi bi-calendar-check me-1"></i>Rent
                     </label>
                   </div>
+                  <span *ngIf="BasicInfo.get('SellOrRent').touched && BasicInfo.get('SellOrRent').errors?.required"
+                    class="text-danger">
+                    Please select Sell or Rent
+                  </span>
                 </div>
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2 me-3"><i class="bi bi-house-gear me-2"></i>Furnish Type</label>
-                  <div class="btn-group me-3" btnRadioGroup [(ngModel)]="propertyView.FurnishType" formControlName="FurnishType">
-                    <label *ngFor="let type of FurnishTypes" class="btn btn-outline-primary" btnRadio="{{type.id}}" role="button">{{type.name}}</label>
+                  <div class="btn-group me-3" btnRadioGroup [(ngModel)]="propertyView.FurnishType"
+                    formControlName="FurnishType">
+                    <label *ngFor="let type of FurnishTypes" class="btn btn-outline-primary" btnRadio="{{type.id}}"
+                      role="button">{{type.name}}</label>
                   </div>
+                  <span *ngIf="BasicInfo.get('FurnishType').touched && BasicInfo.get('FurnishType').errors?.required"
+                    class="text-danger">
+                    Furnish type is required
+                  </span>
                 </div>
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2 me-3"><i class="bi bi-house-gear me-2"></i>Property Type</label>
-                  <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.PropertyType" formControlName="PropertyType">
-                    <label *ngFor="let type of PropertyTypes " class="btn btn-outline-primary" btnRadio="{{type.id}}" role="button">{{type.name}}</label>
-                    </div>
+                  <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.PropertyType"
+                    formControlName="PropertyType">
+                    <label *ngFor="let type of PropertyTypes " class="btn btn-outline-primary" btnRadio="{{type.id}}"
+                      role="button">{{type.name}}</label>
+                  </div>
+                  <br>
+                  <span *ngIf="BasicInfo.get('PropertyType').touched && BasicInfo.get('PropertyType').errors?.required"
+                    class="text-danger">
+                    Property type is required
+                  </span>
                 </div>
+
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-house me-2"></i>Property Name</label>
-                  <input [(ngModel)]="propertyView.Name"  type="text" class="form-control" formControlName="Name"
-                     placeholder="Enter property name">
+                  <input [(ngModel)]="propertyView.Name" type="text" class="form-control" formControlName="Name"
+                    placeholder="Enter property name">
+                  <span *ngIf="BasicInfo.get('Name').touched && BasicInfo.get('Name').errors?.required"
+                    class="text-danger">
+                    Property name is required
+                  </span>
                 </div>
 
                 <div class="row">
@@ -48,12 +70,28 @@
                     <label class="fw-bold mb-2"><i class="bi bi-door-open me-2"></i>Bedrooms</label>
                     <input [(ngModel)]="propertyView.Bedrooms" formControlName="Bedrooms" type="number"
                       class="form-control" placeholder="Number of bedrooms">
+                    <span *ngIf="BasicInfo.get('Bedrooms').touched && BasicInfo.get('Bedrooms').errors?.required"
+                      class="text-danger">
+                      Bedrooms is required
+                    </span>
+                    <span *ngIf="BasicInfo.get('Bedrooms').touched && BasicInfo.get('Bedrooms').errors?.min"
+                      class="text-danger">
+                      Minimum value is 0
+                    </span>
                   </div>
                   <div class="col-md-6 form-group mb-4">
                     <label class="fw-bold mb-2"><i class="bi bi-bucket me-2"></i>Bathrooms</label>
                     <input [(ngModel)]="propertyView.Bathrooms" formControlName="Bathrooms" type="number"
-                      class="form-control"  placeholder="Number of bathrooms">
+                      class="form-control" placeholder="Number of bathrooms">
+                      <span *ngIf="BasicInfo.get('Bathrooms').touched && BasicInfo.get('Bathrooms').errors?.required"
+                    class="text-danger">
+                    Bathrooms is required
+                  </span>
+                  <span *ngIf="BasicInfo.get('Bathrooms').touched && BasicInfo.get('Bathrooms').errors?.min" class="text-danger">
+                    Minimum value is 1
+                  </span>
                   </div>
+
                 </div>
 
                 <div class="form-group mb-4">
@@ -66,59 +104,90 @@
                   <button type="button" class="btn btn-outline-secondary" (click)="onBack()">
                     <i class="bi bi-arrow-left me-1"></i>Back
                   </button>
-                  <button type="button" class="btn btn-primary"
-                    (click)="selectTab(1, BasicInfo.valid)">
+                  <button type="button" class="btn btn-primary" (click)="selectTab(1)">
                     Next <i class="bi bi-arrow-right ms-1"></i>
                   </button>
                 </div>
               </tab>
 
               <!-- Pricing and Area -->
-              <tab heading="Pricing and Area" formGroupName="PricingArea" class="p-3">
+              <tab heading="Pricing and Area" formGroupName="PricingArea" [class.invalid-tab]="!isTabValid(1)"
+                class="p-3">
                 <div class="row">
                   <div class="col-md-6 form-group mb-4">
                     <label class="fw-bold mb-2"><i class="bi bi-tag me-2"></i>Price (in USD)</label>
                     <input [(ngModel)]="propertyView.Price" formControlName="Price" type="number" class="form-control"
-                       placeholder="Enter price">
+                      placeholder="Enter price">
+<span *ngIf="PricingArea.get('Price').touched && PricingArea.get('Price').errors?.required"
+                    class="text-danger">
+                    Price is required
+                  </span>
+                  <span *ngIf="PricingArea.get('Price').touched && PricingArea.get('Price').errors?.min"
+                    class="text-danger">
+                    Price must be positive
+                  </span>
                   </div>
+
+
+
                   <div class="col-md-6 form-group mb-4">
                     <label class="fw-bold mb-2"><i class="bi bi-shield-lock me-2"></i>Security (in USD)</label>
                     <input [(ngModel)]="propertyView.Security" formControlName="Security" type="number"
-                      class="form-control"  placeholder="Security amount">
+                      class="form-control" placeholder="Security amount">
+                    <span *ngIf="PricingArea.get('Security').touched && PricingArea.get('Security').errors?.min"
+                      class="text-danger">
+                      Security must be positive
+                    </span>
                   </div>
                 </div>
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-tools me-2"></i>Maintenance (in USD)</label>
                   <input [(ngModel)]="propertyView.Maintenance" formControlName="Maintenance" type="number"
-                    class="form-control"placeholder="Maintenance fee">
+                    class="form-control" placeholder="Maintenance fee">
+                  <span *ngIf="PricingArea.get('Maintenance').touched && PricingArea.get('Maintenance').errors?.min"
+                    class="text-danger">
+                    Maintenance must be positive
+                  </span>
                 </div>
 
                 <div class="row">
                   <div class="col-md-6 form-group mb-4">
                     <label class="fw-bold mb-2"><i class="bi bi-arrows-angle-expand me-2"></i>Built Area (sq ft)</label>
                     <input [(ngModel)]="propertyView.BuiltArea" formControlName="BuiltArea" type="number"
-                      class="form-control"  placeholder="Built area">
+                      class="form-control" placeholder="Built area">
+                    <span *ngIf="PricingArea.get('BuiltArea').touched && PricingArea.get('BuiltArea').errors?.required"
+                      class="text-danger">
+                      Built area is required
+                    </span>
+                    <span *ngIf="PricingArea.get('BuiltArea').touched && PricingArea.get('BuiltArea').errors?.min"
+                      class="text-danger">
+                      Area must be positive
+                    </span>
                   </div>
                   <div class="col-md-6 form-group mb-4">
                     <label class="fw-bold mb-2"><i class="bi bi-border-width me-2"></i>Carpet Area (sq ft)</label>
                     <input [(ngModel)]="propertyView.CarpetArea" formControlName="CarpetArea" type="number"
-                      class="form-control"  placeholder="Carpet area">
+                      class="form-control" placeholder="Carpet area">
+                    <span *ngIf="PricingArea.get('CarpetArea').touched && PricingArea.get('CarpetArea').errors?.min"
+                      class="text-danger">
+                      Area must be positive
+                    </span>
                   </div>
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                  <button type="button" class="btn btn-outline-secondary" (click)="selectTab(0, PricingArea.valid)">
+                  <button type="button" class="btn btn-outline-secondary" (click)="selectTab(0)">
                     <i class="bi bi-arrow-left me-1"></i>Back
                   </button>
-                  <button type="button" class="btn btn-primary" (click)="selectTab(2, PricingArea.valid)">
+                  <button type="button" class="btn btn-primary"  (click)="selectTab(2)">
                     Next <i class="bi bi-arrow-right ms-1"></i>
                   </button>
                 </div>
               </tab>
 
               <!-- Address -->
-              <tab heading="Address" formGroupName="Address" class="p-3">
+              <tab heading="Address" formGroupName="Address" [class.invalid-tab]="!isTabValid(2)" class="p-3">
                 <div class="row">
                   <div class="col-md-6 form-group mb-4">
                     <label class="fw-bold mb-2"><i class="bi bi-building me-2"></i>Floor</label>
@@ -138,13 +207,20 @@
                     placeholder="Enter city">
                     <option value="" selected>--Select city--</option>
                     <option *ngFor="let city of Cities" value={{city.id}}>{{city.name}}</option>
-                    </select>
+                  </select>
+                  <span *ngIf="Address.get('City').touched && Address.get('City').errors?.required" class="text-danger">
+                    City is required
+                  </span>
                 </div>
 
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-signpost me-2"></i>Address</label>
                   <input [(ngModel)]="propertyView.Address" formControlName="Address" type="text" class="form-control"
                     placeholder="Full address">
+                  <span *ngIf="Address.get('Address').touched && Address.get('Address').errors?.required"
+                    class="text-danger">
+                    Address is required
+                  </span>
                 </div>
 
                 <div class="form-group mb-4">
@@ -154,17 +230,18 @@
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                  <button type="button" class="btn btn-outline-secondary" (click)="selectTab(1, Address.valid)">
+                  <button type="button" class="btn btn-outline-secondary" (click)="selectTab(1)">
                     <i class="bi bi-arrow-left me-1"></i>Back
                   </button>
-                  <button type="button" class="btn btn-primary" (click)="selectTab(3, Address.valid)">
+                  <button type="button" class="btn btn-primary"  (click)="selectTab(3)">
                     Next <i class="bi bi-arrow-right ms-1"></i>
                   </button>
                 </div>
               </tab>
 
               <!-- Other Details -->
-              <tab heading="Other Details" formGroupName="OtherDetails" class="p-3">
+              <tab heading="Other Details" formGroupName="OtherDetails" [class.invalid-tab]="!isTabValid(3)"
+                class="p-3">
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-check-circle me-2"></i>Ready To Move</label>
                   <div class="btn-group ms-3" btnRadioGroup [(ngModel)]="propertyView.ReadyToMove"
@@ -184,7 +261,12 @@
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-clock-history me-2"></i>Age of Property</label>
                   <input [(ngModel)]="propertyView.AgeOfProperty" formControlName="AgeOfProperty" type="number"
-                    class="form-control"  placeholder="Years">
+                    class="form-control" placeholder="Years">
+                  <span
+                    *ngIf="OtherDetails.get('AgeOfProperty').touched && OtherDetails.get('AgeOfProperty').errors?.min"
+                    class="text-danger">
+                    Age must be positive
+                  </span>
                 </div>
 
                 <div class="form-group mb-4">
@@ -200,7 +282,8 @@
                   <label class="fw-bold mb-2"><i class="bi bi-compass me-2"></i>Main Entrance</label>
                   <div class="btn-group ms-3" btnRadioGroup [(ngModel)]="propertyView.MainEntrance"
                     formControlName="MainEntrance">
-                    <label *ngFor="let entrance of MainEntrances" class="btn btn-outline-primary" btnRadio="{{entrance.id}}" role="button">{{entrance.direction}}</label>
+                    <label *ngFor="let entrance of MainEntrances" class="btn btn-outline-primary"
+                      btnRadio="{{entrance.id}}" role="button">{{entrance.direction}}</label>
                   </div>
                 </div>
 
@@ -208,20 +291,26 @@
                   <label class="fw-bold mb-2"><i class="bi bi-card-text me-2"></i>Description</label>
                   <textarea [(ngModel)]="propertyView.Description" formControlName="Description" class="form-control"
                     rows="5" placeholder="Detailed description of the property"></textarea>
+                  <span
+                    *ngIf="OtherDetails.get('Description').touched && OtherDetails.get('Description').errors?.maxlength"
+                    class="text-danger">
+                    Description cannot exceed 500 characters
+                  </span>
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                  <button type="button" class="btn btn-outline-secondary" (click)="selectTab(2, OtherDetails.invalid)">
+                  <button type="button" class="btn btn-outline-secondary" (click)="selectTab(2)">
                     <i class="bi bi-arrow-left me-1"></i>Back
                   </button>
-                  <button type="button" class="btn btn-primary" (click)="selectTab(4, OtherDetails.invalid)">
+                  <button type="button" class="btn btn-primary"  (click)="selectTab(4)">
                     Next <i class="bi bi-arrow-right ms-1"></i>
                   </button>
+                  <!-- (click)="selectTab(4, OtherDetails.invalid)"> -->
                 </div>
               </tab>
 
               <!-- Photos -->
-              <tab heading="Photos" formGroupName="Photos" class="p-3">
+              <tab heading="Photos" formGroupName="Photos" [class.invalid-tab]="!isTabValid(4)" class="p-3">
                 <div class="form-group mb-4">
                   <label class="fw-bold mb-2"><i class="bi bi-images me-2"></i>Property Photos</label>
                   <div class="photo-control d-flex flex-column align-items-center justify-content-center">
@@ -234,10 +323,10 @@
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                  <button type="button" class="btn btn-outline-secondary" (click)="selectTab(3, true)">
+                  <button type="button" class="btn btn-outline-secondary" (click)="selectTab(3)">
                     <i class="bi bi-arrow-left me-1"></i>Back
                   </button>
-                  <button type="submit" class="btn btn-success">
+                  <button type="submit"  class="btn btn-success">
                     <i class="bi bi-check-circle me-1"></i>Submit Property
                   </button>
                 </div>

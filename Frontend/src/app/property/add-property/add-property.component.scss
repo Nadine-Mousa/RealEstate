@@ -21,7 +21,7 @@
 
 .form-control, .btn-group {
   box-shadow: none !important;
-  
+
   &:focus {
     border-color: var(--bs-primary);
     box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
@@ -45,7 +45,7 @@
 .nav-tabs {
   .nav-link {
     font-weight: 500;
-    
+
     &.active {
       font-weight: 600;
     }
@@ -55,4 +55,22 @@
 .dropdown-menu {
   max-height: 300px;
   overflow-y: auto;
+}
+
+// Invalid Tabs
+.invalid-tab .nav-link {
+  color: #dc3545 !important;
+  position: relative;
+}
+.invalid-tab .nav-link::after {
+  content: "!";
+  color: white;
+  background: #dc3545;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  text-align: center;
+  margin-left: 5px;
+  font-size: 12px;
 }
